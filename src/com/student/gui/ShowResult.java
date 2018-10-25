@@ -1,19 +1,20 @@
 package com.student.gui;
 
-import java.awt.EventQueue;
-import java.awt.Font;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import javax.swing.table.*;
 import java.awt.*;
 
 import com.student.calculator.Calculator;
+import com.student.gui.SplashScreen;
 import com.student.models.FirstSemester;
 import com.student.models.SecondSemester;
 import com.student.models.StudentInfo;
@@ -21,15 +22,18 @@ import com.student.models.ThirdSemester;
 import com.student.storage.Database;
 import com.student.storage.FileOperation;
 
-import java.awt.BorderLayout;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JButton;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import javax.swing.Action;
 
 public class ShowResult {
 
 	private JFrame frame;
+	private JFrame animateFrame;
 	
 	private DefaultTableModel tableModel;
 	private JTable table;
@@ -38,10 +42,13 @@ public class ShowResult {
 	private SecondSemester secondSemester;
 	private ThirdSemester thirdSemester;
 	
+	private StudentInfo studentInfo;
+	
 	private Calculator calculator;
 	
 	private String [] header = {"Name", "Code", "Grade"};
 	private String [][] data = {};
+	private String regNo;
 	
 	private double resultCgpa;
 	private double totalMarks;
@@ -49,6 +56,8 @@ public class ShowResult {
 	private ArrayList<String> gradesList;
 	private ArrayList<String> subjectList;
 	private ArrayList<String> codesList;
+	private final Action action = new BackButtonListener();
+	private final Action action_1 = new HomeButtonListener();
 
 	public ShowResult() {
 		
@@ -63,9 +72,19 @@ public class ShowResult {
 					subjectList = new ArrayList<>();
 					
 					FileOperation fileOperation = new FileOperation();
-					StudentInfo studentInfo = fileOperation.readFile();
-					
 					Database database = new Database();
+					
+					if (SelectResultMethod.registrationNumber == null) {
+					
+						studentInfo = fileOperation.readFile();
+						regNo = studentInfo.getStudentRegNo();
+					}
+					
+					else {
+						
+						regNo = SelectResultMethod.registrationNumber;
+						studentInfo = database.getSingleStudent(regNo);
+					}
 					
 					if (database.initDatabase()) {
 						
@@ -75,7 +94,7 @@ public class ShowResult {
 								
 								clearList();
 								
-								firstSemester = database.getFirstSemesterData(studentInfo.getStudentRegNo());
+								firstSemester = database.getFirstSemesterData(regNo);
 								gradesList = firstSemester.getGradesList();
 								codesList = firstSemester.getSubjectCodeList();
 								subjectList = firstSemester.getSubjectNameList();
@@ -85,7 +104,7 @@ public class ShowResult {
 								
 								clearList();
 								
-								secondSemester = database.getSecondSemesterData(studentInfo.getStudentRegNo());
+								secondSemester = database.getSecondSemesterData(regNo);
 								gradesList = secondSemester.getGradesList();
 								codesList = secondSemester.getSubjectCodeList();
 								subjectList = secondSemester.getSubjectNameList();
@@ -95,7 +114,7 @@ public class ShowResult {
 								
 								clearList();
 								
-								thirdSemester = database.getThirdSemesterData(studentInfo.getStudentRegNo());
+								thirdSemester = database.getThirdSemesterData(regNo);
 								gradesList = thirdSemester.getGradesList();
 								codesList = thirdSemester.getSubjectCodeList();
 								subjectList = thirdSemester.getSubjectNameList();
@@ -167,14 +186,16 @@ public class ShowResult {
             }
         };
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 609, 342);
+		frame = new JFrame("Result");
+		frame.getContentPane().setBackground(new Color(249, 249, 249));
+		frame.setBounds(100, 100, 622, 355);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
 		panel.setBounds(12, 12, 357, 290);
+		panel.setBackground(new Color(249, 249, 249));
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -192,20 +213,94 @@ public class ShowResult {
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 0, 357, 290);
+		scrollPane.setBackground(new Color(249, 249, 249));
 		panel.add(scrollPane);
 		
 		JLabel lblTotal = new JLabel("Total :");
 		lblTotal.setFont(new Font("Serif", Font.BOLD, 12));
 		lblTotal.setForeground(Color.GREEN);
 		lblTotal.setText("Total: " + String.valueOf(totalMarks));
-		lblTotal.setBounds(406, 54, 103, 15);
+		lblTotal.setBounds(406, 155, 103, 15);
 		frame.getContentPane().add(lblTotal);
 		
 		JLabel lblNewLabel = new JLabel("CGPA : ");
 		lblNewLabel.setFont(new Font("Serif", Font.BOLD, 12));
 		lblNewLabel.setForeground(Color.GREEN);
 		lblNewLabel.setText("CGPA : " + String.valueOf(resultCgpa));
-		lblNewLabel.setBounds(406, 89, 70, 15);
+		lblNewLabel.setBounds(406, 176, 103, 15);
 		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel nameLabel = new JLabel("Name");
+		nameLabel.setFont(new Font("Serif", Font.BOLD, 12));
+		nameLabel.setBounds(406, 54, 204, 15);
+		frame.getContentPane().add(nameLabel);
+		
+		JLabel regNoLabel = new JLabel("Registration No");
+		regNoLabel.setFont(new Font("Serif", Font.BOLD, 12));
+		regNoLabel.setBounds(406, 81, 204, 15);
+		frame.getContentPane().add(regNoLabel);
+		
+		JLabel batchLabel = new JLabel("Batch");
+		batchLabel.setFont(new Font("Serif", Font.BOLD, 12));
+		batchLabel.setBounds(406, 108, 154, 15);
+		frame.getContentPane().add(batchLabel);
+		
+		nameLabel.setText(studentInfo.getStudentName());
+		regNoLabel.setText(studentInfo.getStudentRegNo());
+		batchLabel.setText(studentInfo.getStudentBatch());
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setAction(action);
+		btnBack.setFont(new Font("Serif", Font.BOLD, 12));
+		btnBack.setBounds(407, 248, 74, 25);
+		frame.getContentPane().add(btnBack);
+		
+		JButton btnHome = new JButton("Home");
+		btnHome.setAction(action_1);
+		btnHome.setFont(new Font("Serif", Font.BOLD, 12));
+		btnHome.setBounds(493, 248, 74, 25);
+		frame.getContentPane().add(btnHome);
+	}
+	
+	private void animate() {
+		
+		animateFrame = new JFrame("Loading");
+		animateFrame.setBounds(100, 100, 563, 394);
+		animateFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		ImageIcon loading = new ImageIcon("/com/student/animations/loading_5.gif");
+	    animateFrame.add(new JLabel("loading... ", loading, JLabel.CENTER));
+				
+		animateFrame.setVisible(true);
+	}
+	
+	private class BackButtonListener extends AbstractAction {
+		
+		public BackButtonListener() {
+			
+			putValue(NAME, "Back");
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+		
+			frame.dispose();
+			new SelectResultMethod();
+			return;
+		}
+	}
+	
+	private class HomeButtonListener extends AbstractAction {
+		
+		public HomeButtonListener() {
+			
+			putValue(NAME, "Home");
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			
+			frame.dispose();
+			new MainMenu();
+			return;
+		}
 	}
 }

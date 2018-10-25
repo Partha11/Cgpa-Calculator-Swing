@@ -23,6 +23,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.Action;
+import java.awt.Font;
 
 public class InsertStudentInfo {
 
@@ -66,30 +67,34 @@ public class InsertStudentInfo {
 		frame.getContentPane().setLayout(null);
 		
 		panel = new JPanel();
-		panel.setBounds(86, 59, 297, 145);
+		panel.setBounds(86, 29, 297, 175);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Registration No:");
-		lblNewLabel.setBounds(12, 12, 124, 15);
+		lblNewLabel.setFont(new Font("Serif", Font.BOLD, 12));
+		lblNewLabel.setBounds(12, 25, 124, 15);
 		panel.add(lblNewLabel);
 		
 		textField = new JTextField();
-		textField.setBounds(154, 10, 124, 19);
+		textField.setFont(new Font("Serif", Font.PLAIN, 12));
+		textField.setBounds(154, 20, 124, 25);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblBatch = new JLabel("Batch:");
-		lblBatch.setBounds(12, 39, 67, 15);
+		lblBatch.setFont(new Font("Serif", Font.BOLD, 12));
+		lblBatch.setBounds(12, 56, 67, 15);
 		panel.add(lblBatch);
 		
 		comboBox = new JComboBox(comboBoxModel);
-		comboBox.setBounds(154, 37, 124, 19);
+		comboBox.setFont(new Font("Serif", Font.BOLD, 12));
+		comboBox.setBounds(154, 54, 124, 19);
 		panel.add(comboBox);
 		
 		btnSave = new JButton("Save");
 		btnSave.setAction(action);
-		btnSave.setBounds(94, 93, 92, 25);
+		btnSave.setBounds(94, 123, 92, 25);
 		panel.add(btnSave);
 	}
 	

@@ -8,15 +8,6 @@ public class ThirdSemester {
 	private ArrayList<String> subjectNameList;
 	private ArrayList<String> subjectCodeList;
 
-    private String cse211;
-    private String cse212;
-    private String cse213;
-    private String cse214;
-    private String cse215;
-    private String cse216;
-    private String cse217;
-    private String cse218;
-
     public ThirdSemester(ArrayList<String> gradesList) {
 
 this.gradesList = gradesList;

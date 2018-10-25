@@ -30,6 +30,7 @@ public class MainMenu {
 	private JButton btnResults;
 	
 	private final Action action = new SwingAction();
+	private final Action exitAction = new ExitAction();
 
 	public MainMenu() {
 		
@@ -70,7 +71,7 @@ public class MainMenu {
 
 	private void initialize() {
 		
-		frame = new JFrame();
+		frame = new JFrame("Home");
 		frame.setBounds(100, 100, 502, 327);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -89,6 +90,7 @@ public class MainMenu {
 		frame.getContentPane().add(btnCredits);
 		
 		JButton btnQuit = new JButton("Quit");
+		btnQuit.setAction(exitAction);
 		btnQuit.setBounds(41, 210, 115, 25);
 		frame.getContentPane().add(btnQuit);
 		
@@ -152,6 +154,20 @@ public class MainMenu {
 			
 			frame.dispose();
 			new SelectResultMethod();
+			return;
+		}
+	}
+	
+	private class ExitAction extends AbstractAction {
+		
+		public ExitAction() {
+			
+			putValue(NAME, "Quit");
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			
+			frame.dispose();
 			return;
 		}
 	}

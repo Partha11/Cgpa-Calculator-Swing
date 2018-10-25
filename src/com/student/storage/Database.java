@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import com.mysql.fabric.xmlrpc.base.Array;
 import com.student.models.*;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class Database {
 
@@ -57,7 +58,8 @@ public class Database {
 
             Class.forName("com.mysql.jdbc.Driver");
 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Students?useSSL=false", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://sql12.freesqldatabase.com:3306/sql12253493?useSSL=false", "sql12253493",
+            		"513fI2VJpn");
             isInitSuccessful = true;
         }
 
@@ -137,8 +139,8 @@ public class Database {
             while (resultSet.next()) {
                 
                 String reg_no = resultSet.getString("reg_no");
-                String roll_no = resultSet.getString("roll_no");
-                String batch = resultSet.getString("batch");
+                String roll_no = resultSet.getString("roll");
+                String batch = resultSet.getString("session");
                 String name = resultSet.getString("name");
                 
                 studentInfo = new StudentInfo(reg_no, roll_no, name, batch);
@@ -175,12 +177,12 @@ public class Database {
         			ArrayList<String> gradesList = new ArrayList<String>();
         			
         			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("cse111"));
-        			gradesList.add(resultSet.getString("cse112"));
-        			gradesList.add(resultSet.getString("cse113"));
-        			gradesList.add(resultSet.getString("cse114"));
-        			gradesList.add(resultSet.getString("cse115"));
-        			gradesList.add(resultSet.getString("cse116"));
+        			gradesList.add(resultSet.getString("111"));
+        			gradesList.add(resultSet.getString("112"));
+        			gradesList.add(resultSet.getString("113"));
+        			gradesList.add(resultSet.getString("114"));
+        			gradesList.add(resultSet.getString("115"));
+        			gradesList.add(resultSet.getString("116"));
 
         			firstSemester = new FirstSemester(gradesList);
         		}
@@ -215,13 +217,13 @@ public class Database {
         			ArrayList<String> gradesList = new ArrayList<String>();
         			
         			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("cse121"));
-        			gradesList.add(resultSet.getString("cse122"));
-        			gradesList.add(resultSet.getString("cse123"));
-        			gradesList.add(resultSet.getString("cse124"));
-        			gradesList.add(resultSet.getString("cse125"));
-        			gradesList.add(resultSet.getString("cse126"));
-        			gradesList.add(resultSet.getString("cse127"));
+        			gradesList.add(resultSet.getString("121"));
+        			gradesList.add(resultSet.getString("122"));
+        			gradesList.add(resultSet.getString("123"));
+        			gradesList.add(resultSet.getString("124"));
+        			gradesList.add(resultSet.getString("125"));
+        			gradesList.add(resultSet.getString("126"));
+        			gradesList.add(resultSet.getString("127"));
 
         			secondSemester = new SecondSemester(gradesList);
         		}
@@ -256,15 +258,15 @@ public class Database {
         			ArrayList<String> gradesList = new ArrayList<String>();
         			
         			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("cse211"));
-        			gradesList.add(resultSet.getString("cse212"));
-        			gradesList.add(resultSet.getString("cse213"));
-        			gradesList.add(resultSet.getString("cse214"));
-        			gradesList.add(resultSet.getString("cse215"));
-        			gradesList.add(resultSet.getString("cse216"));
-        			gradesList.add(resultSet.getString("cse217"));
-        			gradesList.add(resultSet.getString("cse218"));
-        			gradesList.add(resultSet.getString("cse219"));
+        			gradesList.add(resultSet.getString("211"));
+        			gradesList.add(resultSet.getString("212"));
+        			gradesList.add(resultSet.getString("213"));
+        			gradesList.add(resultSet.getString("214"));
+        			gradesList.add(resultSet.getString("215"));
+        			gradesList.add(resultSet.getString("216"));
+        			gradesList.add(resultSet.getString("217"));
+        			gradesList.add(resultSet.getString("218"));
+        			gradesList.add(resultSet.getString("219"));
 
         			thirdSemester = new ThirdSemester(gradesList);
         		}

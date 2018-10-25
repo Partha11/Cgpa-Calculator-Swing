@@ -40,20 +40,30 @@ import javax.swing.Action;
 import javax.swing.ComboBoxEditor;
 
 import java.awt.Button;
+import java.awt.Font;
 
 public class SelectResultMethod {
 	
 	private Database database;
 
 	private JFrame frame;
+	
 	private JComboBox comboBox;
+	private JComboBox comboBox_1;
+	
 	private JButton btnNext;
+	
 	private JPanel selectionRegPanel;
 	private JTextField txtRegistrationNumber;
+	
 	private final Action action = new HomeButtonClicked();
 	private final Action action_1 = new NextButtonClicked();
+	private final Action action_2 = new ManualNextButtonClicked();
 	
 	public static int semester;
+	public static String registrationNumber;
+	
+	private JTextField reg_no_manual;
 
 	public SelectResultMethod() {
 		
@@ -93,7 +103,7 @@ public class SelectResultMethod {
 
 	private void initialize() {
 		
-		frame = new JFrame();
+		frame = new JFrame("Result Method");
 		frame.setBounds(100, 100, 448, 303);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -129,9 +139,31 @@ public class SelectResultMethod {
 		tabbedPane.addTab("Manual", null, panel_1, null);
 		panel_1.setLayout(null);
 		
-		JLabel lblPanel_1 = new JLabel("Panel 2");
-		lblPanel_1.setBounds(67, 77, 51, 15);
+		JLabel lblPanel_1 = new JLabel("Semester");
+		lblPanel_1.setFont(new Font("Serif", Font.BOLD, 12));
+		lblPanel_1.setBounds(65, 77, 82, 15);
 		panel_1.add(lblPanel_1);
+		
+		comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"}));
+		comboBox_1.setBounds(210, 72, 123, 24);
+		panel_1.add(comboBox_1);
+		
+		JLabel lblNewLabel = new JLabel("Registration No");
+		lblNewLabel.setFont(new Font("Serif", Font.BOLD, 12));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(65, 42, 111, 15);
+		panel_1.add(lblNewLabel);
+		
+		reg_no_manual = new JTextField();
+		reg_no_manual.setBounds(210, 38, 123, 24);
+		panel_1.add(reg_no_manual);
+		reg_no_manual.setColumns(10);
+		
+		JButton btnSearch = new JButton("Search");
+		btnSearch.setAction(action_2);
+		btnSearch.setBounds(140, 141, 92, 25);
+		panel_1.add(btnSearch);
 		frame.setVisible(true);
 	}
 	
@@ -149,6 +181,7 @@ public class SelectResultMethod {
 			return;
 		}
 	}
+	
 	private class NextButtonClicked extends AbstractAction {
 		
 		public NextButtonClicked() {
@@ -158,48 +191,26 @@ public class SelectResultMethod {
 		
 		public void actionPerformed(ActionEvent e) {
 			
-			switch (comboBox.getSelectedIndex()) {
+			semester = comboBox.getSelectedIndex() + 1;
+			registrationNumber = null;
 			
-				case 0:
-					
-					semester = 1;
-					break;
-					
-				case 1:
-					
-					semester = 2;
-					break;
-					
-				case 2:
-					
-					semester = 3;
-					break;
-					
-				case 3:
-					
-					semester = 4;
-					break;
-					
-				case 4:
-					
-					semester = 5;
-					break;
-					
-				case 5:
-					
-					semester = 6;
-					break;
-					
-				case 6:
-					
-					semester = 7;
-					break;
-					
-				case 7:
-					
-					semester = 8;
-					break;
-			}
+			frame.dispose();
+			new ShowResult();
+			return;
+		}
+	}
+	
+	private class ManualNextButtonClicked extends AbstractAction {
+		
+		public ManualNextButtonClicked() {
+			
+			putValue(NAME, "Search");
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			
+			semester = comboBox_1.getSelectedIndex() + 1;
+			registrationNumber = reg_no_manual.getText();
 			
 			frame.dispose();
 			new ShowResult();

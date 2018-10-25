@@ -13,12 +13,18 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.student.storage.FileOperation;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class SplashScreen {
 
 	private JFrame frame;
 	private JProgressBar progressBar;
 	private Timer timer;
+	
+	private int val;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -56,7 +62,7 @@ public class SplashScreen {
 						@Override
 						public void actionPerformed(ActionEvent actionEvent) {
 							
-							int val = progressBar.getValue();
+							val = progressBar.getValue();
 							
 							if (val >= 100) {
 								
@@ -77,10 +83,20 @@ public class SplashScreen {
 							}
 							
 							progressBar.setValue(++val);
+							
+							try {
+								
+								Thread.sleep(40);
+							} 
+							
+							catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 					};
 					
-					timer = new Timer(30, updateProgress);
+					timer = new Timer(10, updateProgress);
 					timer.start();
 				} 
 				
@@ -94,19 +110,27 @@ public class SplashScreen {
 
 	private void initialize() {
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame = new JFrame("Loading");
+		frame.setBounds(100, 100, 563, 394);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(249, 249, 249));
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		progressBar = new JProgressBar();
-		progressBar.setValue(30);
-		progressBar.setBounds(147, 233, 148, 14);
-		progressBar.setMinimum(30);
+		progressBar.setValue(10);
+		progressBar.setBounds(202, 315, 148, 14);
+		progressBar.setMinimum(10);
 		panel.add(progressBar);
+		
+		JLabel label = new JLabel("");
+		label.setBackground(new Color(255, 255, 255));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setIcon(new ImageIcon(SplashScreen.class.getResource("/com/student/animations/loading_4_1.gif")));
+		label.setBounds(124, 32, 308, 271);
+		panel.add(label);
 	}
 }

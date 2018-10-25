@@ -1,14 +1,18 @@
 package com.student.calculator;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.student.gui.SelectResultMethod;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class Calculator {
 
 	private ArrayList<String> gradesList;
 	private ArrayList<Integer> indexList;
+	
+	private DecimalFormat decimalFormat = new DecimalFormat(".##");
 	
 	private int semester;
 	
@@ -79,12 +83,37 @@ public class Calculator {
 			
 			case 2:
 			
-				credit = 16.5;
+				credit = 18;
 				break;
 			
 			case 3:
 			
+				credit = 22.5;
+				break;
+				
+			case 4:
+				
+				credit = 18;
+				break;
+				
+			case 5:
+				
 				credit = 16.5;
+				break;
+				
+			case 6:
+				
+				credit = 19.5;
+				break;
+				
+			case 7:
+				
+				credit = 18;
+				break;
+				
+			case 8:
+				
+				credit = 13.5;
 				break;
 		}
 	}
@@ -116,6 +145,8 @@ public class Calculator {
 	
 	public double calculateCgpa(double total) {
 		
-		return (total / credit);
+		double result = Double.parseDouble(decimalFormat.format(total / credit));
+		
+		return result;
 	}
 }
