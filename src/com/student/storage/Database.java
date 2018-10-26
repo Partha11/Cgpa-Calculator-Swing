@@ -1,12 +1,17 @@
 package com.student.storage;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import com.mysql.fabric.xmlrpc.base.Array;
-import com.student.models.*;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+import com.student.models.FirstSemester;
+import com.student.models.SecondSemester;
+import com.student.models.StudentInfo;
+import com.student.models.ThirdSemester;
 
 public class Database {
 
@@ -108,7 +113,7 @@ public class Database {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setString(1, studentInfo.getStudentRegNo());
-            preparedStatement.setString(2, studentInfo.getStudentRoll());
+            preparedStatement.setString(2, studentInfo.getStudentSession());
             preparedStatement.setString(3, studentInfo.getStudentName());
             preparedStatement.setString(4, studentInfo.getStudentBatch());
 
@@ -139,11 +144,10 @@ public class Database {
             while (resultSet.next()) {
                 
                 String reg_no = resultSet.getString("reg_no");
-                String roll_no = resultSet.getString("roll");
-                String batch = resultSet.getString("session");
+                String session = resultSet.getString("session");
                 String name = resultSet.getString("name");
                 
-                studentInfo = new StudentInfo(reg_no, roll_no, name, batch);
+                studentInfo = new StudentInfo(reg_no, name, session);
             }
 
             connection.close();

@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 import javax.swing.Action;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -23,7 +25,7 @@ public class MainMenu {
 	private JLabel nameLabel;
 	private JLabel batchLabel;
 	private JLabel regNoLabel;
-	private JLabel rollNoLabel;
+	private JLabel sessionLabel;
 	
 	private FileOperation fileOperation;
 	
@@ -48,11 +50,47 @@ public class MainMenu {
 					if (checkFile()) {
 						
 						StudentInfo studentInfo = fileOperation.readFile();
+						StringBuilder fullName = new StringBuilder();
+						String fullNameCamelCase;
+						boolean isSpace = true;
 						
-						nameLabel.setText(studentInfo.getStudentName());
+						for (Character ch : studentInfo.getStudentName().toCharArray()) {
+							
+							if (Character.isWhitespace(ch)) {
+								
+								isSpace = true;
+								fullName.append(" ");
+								continue;
+							}
+							
+							if (isSpace) {
+								
+								ch = Character.toUpperCase(ch);
+								isSpace = false;
+							}
+							
+							else
+								
+								ch = Character.toLowerCase(ch);
+							
+							fullName.append(ch);
+						}
+						
+						fullNameCamelCase = fullName.toString();
+						
+						if (fullNameCamelCase.length() > 20) {
+							
+							String name[] = fullNameCamelCase.split(" ");
+							nameLabel.setText(name[0] + " " + name[name.length - 1]);
+						}
+						
+						else
+							
+							nameLabel.setText(fullNameCamelCase);
+						
 						batchLabel.setText(studentInfo.getStudentBatch());
 						regNoLabel.setText(studentInfo.getStudentRegNo());
-						rollNoLabel.setText(studentInfo.getStudentRoll());
+						sessionLabel.setText(studentInfo.getStudentSession());
 					}
 				} 
 				
@@ -78,26 +116,30 @@ public class MainMenu {
 		
 		btnResults = new JButton("Results");
 		btnResults.setAction(action);
-		btnResults.setBounds(41, 99, 115, 25);
+		btnResults.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnResults.setBounds(53, 99, 83, 25);
 		frame.getContentPane().add(btnResults);
 		
 		JButton btnSubjects = new JButton("Subjects");
-		btnSubjects.setBounds(41, 136, 115, 25);
+		btnSubjects.setBounds(41, 135, 115, 25);
+		btnSubjects.setFont(new Font("Cambria", Font.BOLD, 15));
 		frame.getContentPane().add(btnSubjects);
 		
 		JButton btnCredits = new JButton("Credits");
-		btnCredits.setBounds(41, 173, 115, 25);
+		btnCredits.setBounds(53, 171, 83, 25);
+		btnCredits.setFont(new Font("Cambria", Font.BOLD, 15));
 		frame.getContentPane().add(btnCredits);
 		
 		JButton btnQuit = new JButton("Quit");
 		btnQuit.setAction(exitAction);
-		btnQuit.setBounds(41, 210, 115, 25);
+		btnQuit.setBounds(53, 207, 83, 25);
+		btnQuit.setFont(new Font("Cambria", Font.BOLD, 15));
 		frame.getContentPane().add(btnQuit);
 		
 		JLabel lblStudentsHub = new JLabel("Students Hub");
 		lblStudentsHub.setForeground(new Color(0, 206, 209));
 		lblStudentsHub.setBackground(Color.LIGHT_GRAY);
-		lblStudentsHub.setFont(new Font("Dialog", Font.BOLD, 18));
+		lblStudentsHub.setFont(new Font("Cambria", Font.BOLD, 18));
 		lblStudentsHub.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStudentsHub.setBounds(98, 12, 230, 55);
 		frame.getContentPane().add(lblStudentsHub);
@@ -110,35 +152,43 @@ public class MainMenu {
 		
 		JLabel lblName = new JLabel("Name:");
 		lblName.setBounds(12, 22, 44, 15);
+		lblName.setFont(new Font("Cambria", Font.BOLD, 15));
 		panel.add(lblName);
 		
 		JLabel lblBatch = new JLabel("Batch:");
 		lblBatch.setBounds(12, 49, 67, 15);
+		lblBatch.setFont(new Font("Cambria", Font.BOLD, 15));
 		panel.add(lblBatch);
 		
 		JLabel lblRegistrationNo = new JLabel("Reg No:");
 		lblRegistrationNo.setBounds(12, 76, 67, 15);
+		lblRegistrationNo.setFont(new Font("Cambria", Font.BOLD, 15));
 		panel.add(lblRegistrationNo);
 		
-		JLabel lblRollNo = new JLabel("Roll No:");
-		lblRollNo.setBounds(12, 103, 67, 15);
-		panel.add(lblRollNo);
+		JLabel lblSession = new JLabel("Session:");
+		lblSession.setBounds(12, 103, 67, 15);
+		lblSession.setFont(new Font("Cambria", Font.BOLD, 15));
+		panel.add(lblSession);
 		
 		nameLabel = new JLabel("Not Set");
 		nameLabel.setBounds(80, 22, 206, 15);
+		nameLabel.setFont(new Font("Cambria", Font.PLAIN, 15));
 		panel.add(nameLabel);
 		
 		batchLabel = new JLabel("Not Set");
 		batchLabel.setBounds(80, 49, 152, 15);
+		batchLabel.setFont(new Font("Cambria", Font.PLAIN, 15));
 		panel.add(batchLabel);
 		
 		regNoLabel = new JLabel("Not Set");
 		regNoLabel.setBounds(80, 76, 152, 15);
+		regNoLabel.setFont(new Font("Cambria", Font.PLAIN, 15));
 		panel.add(regNoLabel);
 		
-		rollNoLabel = new JLabel("Not Set");
-		rollNoLabel.setBounds(80, 103, 152, 15);
-		panel.add(rollNoLabel);
+		sessionLabel = new JLabel("Not Set");
+		sessionLabel.setBounds(80, 103, 152, 15);
+		sessionLabel.setFont(new Font("Cambria", Font.PLAIN, 15));
+		panel.add(sessionLabel);
 	}
 	
 	private class SwingAction extends AbstractAction {

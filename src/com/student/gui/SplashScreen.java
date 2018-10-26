@@ -26,9 +26,6 @@ public class SplashScreen {
 	
 	private int val;
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
 	public SplashScreen() {
 
 		EventQueue.invokeLater(new Runnable() {
@@ -42,16 +39,7 @@ public class SplashScreen {
 						UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 	                } 
 					
-					catch (ClassNotFoundException ex) {
-	                } 
-					
-					catch (InstantiationException ex) {
-	                } 
-					
-					catch (IllegalAccessException ex) {
-	                } 
-					
-					catch (UnsupportedLookAndFeelException ex) {
+					catch (Exception ex) {
 	                }
 					
 					initialize();
@@ -86,11 +74,11 @@ public class SplashScreen {
 							
 							try {
 								
-								Thread.sleep(40);
+								Thread.sleep(50);
 							} 
 							
 							catch (InterruptedException e) {
-								// TODO Auto-generated catch block
+								
 								e.printStackTrace();
 							}
 						}
@@ -111,7 +99,7 @@ public class SplashScreen {
 	private void initialize() {
 		
 		frame = new JFrame("Loading");
-		frame.setBounds(100, 100, 563, 394);
+		frame.setBounds(100, 100, 564, 397);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
@@ -122,7 +110,7 @@ public class SplashScreen {
 		
 		progressBar = new JProgressBar();
 		progressBar.setValue(10);
-		progressBar.setBounds(202, 315, 148, 14);
+		progressBar.setBounds(204, 317, 148, 14);
 		progressBar.setMinimum(10);
 		panel.add(progressBar);
 		
@@ -130,7 +118,7 @@ public class SplashScreen {
 		label.setBackground(new Color(255, 255, 255));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setIcon(new ImageIcon(SplashScreen.class.getResource("/com/student/animations/loading_4_1.gif")));
-		label.setBounds(124, 32, 308, 271);
+		label.setBounds(124, 11, 308, 271);
 		panel.add(label);
 	}
 }

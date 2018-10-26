@@ -3,14 +3,21 @@ package com.student.models;
 public class StudentInfo {
 
 	private String studentRegNo;
-    private String studentRoll;
+    private String studentSession;
     private String studentName;
     private String studentBatch;
-
-    public StudentInfo(String studentRegNo, String studentRoll, String studentName, String studentBatch) {
+    
+    public StudentInfo(String studentRegNo, String studentName, String studentSession) {
 
         this.studentRegNo = studentRegNo;
-        this.studentRoll = studentRoll;
+        this.studentName = studentName;
+        this.studentSession = studentSession;
+    }
+
+    public StudentInfo(String studentRegNo, String studentSession, String studentName, String studentBatch) {
+
+        this.studentRegNo = studentRegNo;
+        this.studentSession = studentSession;
         this.studentName = studentName;
         this.studentBatch = studentBatch;
     }
@@ -20,9 +27,9 @@ public class StudentInfo {
         return studentRegNo;
     }
 
-    public String getStudentRoll() {
+    public String getStudentSession() {
 
-        return studentRoll;
+        return studentSession;
     }
 
     public String getStudentName() {

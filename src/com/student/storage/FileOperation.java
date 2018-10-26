@@ -65,7 +65,7 @@ public class FileOperation {
         String name = "";
         String batch = "";
         String regNo = "";
-        String roll = "";
+        String session = "";
         
         if (node.getNodeType() == Node.ELEMENT_NODE) {
 
@@ -73,10 +73,10 @@ public class FileOperation {
             name = getTagValue("name", element);
             batch = getTagValue("batch", element);
             regNo = getTagValue("regNo", element);
-            roll = getTagValue("roll", element);
+            session = getTagValue("session", element);
         }
 
-        studentInfo = new StudentInfo(regNo, roll, name, batch);
+        studentInfo = new StudentInfo(regNo, session, name, batch);
 
         return studentInfo;
     }
@@ -105,17 +105,14 @@ public class FileOperation {
             // append child elements to root element
             mainRootElement.appendChild(getStudent(doc, "1", 
                                                         studentInfo.getStudentName(), studentInfo.getStudentBatch(), 
-                                                        studentInfo.getStudentRegNo(), 
-                                                        studentInfo.getStudentRoll()));
+                                                        studentInfo.getStudentRegNo(),
+                                                        studentInfo.getStudentSession()));
  
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
             DOMSource input = new DOMSource(doc);
             Result output = new StreamResult(new File(FILENAME));
             transformer.transform(input, output);
- 
-            System.out.println("\nXML DOM Created Successfully..");
- 
         } 
         
         catch (Exception e) {
@@ -124,14 +121,14 @@ public class FileOperation {
         }
     }
 
-    private static Node getStudent(Document doc, String id, String name, String batch, String regNo, String roll) {
+    private static Node getStudent(Document doc, String id, String name, String batch, String regNo, String session) {
         
         Element student = doc.createElement("info");
         student.setAttribute("id", id);
         student.appendChild(getStudentElement(doc, student, "name", name));
         student.appendChild(getStudentElement(doc, student, "batch", batch));
         student.appendChild(getStudentElement(doc, student, "regNo", regNo));
-        student.appendChild(getStudentElement(doc, student, "roll", roll));
+        student.appendChild(getStudentElement(doc, student, "session", session));
 
         return student;
     }

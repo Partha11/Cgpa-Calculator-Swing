@@ -108,11 +108,11 @@ public class InsertStudentInfo {
 		public void actionPerformed(ActionEvent e) {
 			
 			String regNo = textField.getText().toString();
-			String batch = comboBox.getSelectedItem().toString() + "th";
+			String batch = comboBox.getSelectedItem().toString();
 			
 			if (batch == null)
 				
-				batch = comboBox.getItemAt(0).toString() + "th";
+				batch = comboBox.getItemAt(0).toString();
 			
 			if (regNo == null || regNo.isEmpty())
 				
@@ -130,17 +130,8 @@ public class InsertStudentInfo {
 				
 				if (studentInfo != null) {
 					
-					if (studentInfo.getStudentBatch() != null) {
-					
-						fileOperation.writeFile(studentInfo);
-					}
-					
-					else {
-						
-						studentInfo.setStudentBatch(batch);
-						database.updateStudentBatch(studentInfo);
-						fileOperation.writeFile(studentInfo);
-					}
+					studentInfo.setStudentBatch(batch + "th");
+					fileOperation.writeFile(studentInfo);
 					
 					frame.dispose();
 					new MainMenu();
