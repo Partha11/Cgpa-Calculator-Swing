@@ -1,5 +1,7 @@
 package com.student.models;
 
+import com.sun.media.jfxmedia.control.VideoDataBuffer;
+
 public class StudentInfo {
 
 	private String studentRegNo;
@@ -40,6 +42,11 @@ public class StudentInfo {
     public String getStudentBatch() {
 
         return studentBatch;
+    }
+    
+    public void setStudentName(String studentName) {
+    	
+    	this.studentName = studentName;
     }
     
     public void setStudentBatch(String studentBatch) {

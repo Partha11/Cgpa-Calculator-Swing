@@ -217,32 +217,32 @@ public class ShowResult {
 		panel.add(scrollPane);
 		
 		JLabel lblTotal = new JLabel("Total :");
-		lblTotal.setFont(new Font("Serif", Font.BOLD, 12));
-		lblTotal.setForeground(Color.GREEN);
+		lblTotal.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblTotal.setForeground(new Color(0, 102, 255));
 		lblTotal.setText("Total: " + String.valueOf(totalMarks));
-		lblTotal.setBounds(406, 155, 103, 15);
+		lblTotal.setBounds(406, 155, 103, 19);
 		frame.getContentPane().add(lblTotal);
 		
 		JLabel lblNewLabel = new JLabel("CGPA : ");
-		lblNewLabel.setFont(new Font("Serif", Font.BOLD, 12));
-		lblNewLabel.setForeground(Color.GREEN);
+		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblNewLabel.setForeground(new Color(0, 102, 255));
 		lblNewLabel.setText("CGPA : " + String.valueOf(resultCgpa));
-		lblNewLabel.setBounds(406, 176, 103, 15);
+		lblNewLabel.setBounds(406, 176, 103, 19);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel nameLabel = new JLabel("Name");
-		nameLabel.setFont(new Font("Serif", Font.BOLD, 12));
-		nameLabel.setBounds(406, 54, 204, 15);
+		nameLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		nameLabel.setBounds(406, 54, 204, 19);
 		frame.getContentPane().add(nameLabel);
 		
 		JLabel regNoLabel = new JLabel("Registration No");
-		regNoLabel.setFont(new Font("Serif", Font.BOLD, 12));
-		regNoLabel.setBounds(406, 81, 204, 15);
+		regNoLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		regNoLabel.setBounds(406, 81, 204, 19);
 		frame.getContentPane().add(regNoLabel);
 		
 		JLabel batchLabel = new JLabel("Batch");
-		batchLabel.setFont(new Font("Serif", Font.BOLD, 12));
-		batchLabel.setBounds(406, 108, 154, 15);
+		batchLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		batchLabel.setBounds(406, 108, 154, 19);
 		frame.getContentPane().add(batchLabel);
 		
 		nameLabel.setText(studentInfo.getStudentName());
@@ -251,14 +251,14 @@ public class ShowResult {
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.setAction(action);
-		btnBack.setFont(new Font("Serif", Font.BOLD, 12));
-		btnBack.setBounds(407, 248, 74, 25);
+		btnBack.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnBack.setBounds(407, 248, 74, 30);
 		frame.getContentPane().add(btnBack);
 		
 		JButton btnHome = new JButton("Home");
 		btnHome.setAction(action_1);
-		btnHome.setFont(new Font("Serif", Font.BOLD, 12));
-		btnHome.setBounds(493, 248, 74, 25);
+		btnHome.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnHome.setBounds(493, 248, 74, 30);
 		frame.getContentPane().add(btnHome);
 	}
 	
@@ -269,7 +269,7 @@ public class ShowResult {
 		animateFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		ImageIcon loading = new ImageIcon("/com/student/animations/loading_5.gif");
-	    animateFrame.add(new JLabel("loading... ", loading, JLabel.CENTER));
+	    animateFrame.getContentPane().add(new JLabel("loading... ", loading, JLabel.CENTER));
 				
 		animateFrame.setVisible(true);
 	}

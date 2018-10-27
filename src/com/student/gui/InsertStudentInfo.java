@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 
 import com.student.models.StudentInfo;
+import com.student.statics.CaseConversion;
 import com.student.storage.Database;
 import com.student.storage.FileOperation;
 
@@ -24,6 +25,7 @@ import java.awt.event.ItemListener;
 
 import javax.swing.Action;
 import java.awt.Font;
+import java.awt.Color;
 
 public class InsertStudentInfo {
 
@@ -62,39 +64,43 @@ public class InsertStudentInfo {
 		comboBoxModel = new DefaultComboBoxModel<>(batchList);
 		
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(249, 249, 249));
 		frame.setBounds(100, 100, 450, 300);
+		frame.setTitle("Student Information");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		panel = new JPanel();
-		panel.setBounds(86, 29, 297, 175);
+		panel.setBackground(new Color(249, 249, 249));
+		panel.setBounds(64, 29, 297, 175);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Registration No:");
-		lblNewLabel.setFont(new Font("Serif", Font.BOLD, 12));
-		lblNewLabel.setBounds(12, 25, 124, 15);
+		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblNewLabel.setBounds(12, 25, 124, 19);
 		panel.add(lblNewLabel);
 		
 		textField = new JTextField();
-		textField.setFont(new Font("Serif", Font.PLAIN, 12));
+		textField.setFont(new Font("Cambria", Font.PLAIN, 15));
 		textField.setBounds(154, 20, 124, 25);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblBatch = new JLabel("Batch:");
-		lblBatch.setFont(new Font("Serif", Font.BOLD, 12));
-		lblBatch.setBounds(12, 56, 67, 15);
+		lblBatch.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblBatch.setBounds(12, 56, 67, 19);
 		panel.add(lblBatch);
 		
 		comboBox = new JComboBox(comboBoxModel);
-		comboBox.setFont(new Font("Serif", Font.BOLD, 12));
-		comboBox.setBounds(154, 54, 124, 19);
+		comboBox.setFont(new Font("Cambria", Font.BOLD, 15));
+		comboBox.setBounds(154, 53, 124, 25);
 		panel.add(comboBox);
 		
 		btnSave = new JButton("Save");
 		btnSave.setAction(action);
-		btnSave.setBounds(94, 123, 92, 25);
+		btnSave.setBounds(94, 123, 92, 30);
+		btnSave.setFont(new Font("Cambria", Font.BOLD, 15));
 		panel.add(btnSave);
 	}
 	
@@ -130,6 +136,7 @@ public class InsertStudentInfo {
 				
 				if (studentInfo != null) {
 					
+					studentInfo.setStudentName(CaseConversion.toCamelCase(studentInfo.getStudentName()));
 					studentInfo.setStudentBatch(batch + "th");
 					fileOperation.writeFile(studentInfo);
 					
