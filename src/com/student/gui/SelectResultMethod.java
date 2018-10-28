@@ -22,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.student.models.FirstSemester;
 import com.student.models.StudentInfo;
+import com.student.statics.FramePosition;
 import com.student.storage.Database;
 import com.student.storage.FileOperation;
 
@@ -31,6 +32,9 @@ import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
 import javax.swing.JTextField;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
@@ -105,10 +109,30 @@ public class SelectResultMethod {
 		
 		frame = new JFrame("Result Method");
 		frame.getContentPane().setBackground(new Color(249, 249, 249));
-		frame.setBounds(100, 100, 448, 303);
 		frame.setBackground(new Color(249, 249, 249));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setSize(448, 303);
+		frame.setLocationRelativeTo(null);
+		frame.addComponentListener(new ComponentAdapter() {
+
+			@Override
+			public void componentMoved(ComponentEvent componentEvent) {
+
+				FramePosition.frameX = componentEvent.getComponent().getX();
+				FramePosition.frameY = componentEvent.getComponent().getY();
+			}
+		});
+
+		if (FramePosition.frameX == 0 || FramePosition.frameY == 0)
+
+			frame.setLocationRelativeTo(null);
+
+		else
+
+			frame.setLocation(FramePosition.frameX, FramePosition.frameY);
+		
+		System.out.println(FramePosition.frameX + " " + FramePosition.frameY);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(32, 12, 382, 251);

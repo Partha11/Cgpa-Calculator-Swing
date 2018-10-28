@@ -1,7 +1,5 @@
 package com.student.models;
 
-import com.sun.media.jfxmedia.control.VideoDataBuffer;
-
 public class StudentInfo {
 
 	private String studentRegNo;

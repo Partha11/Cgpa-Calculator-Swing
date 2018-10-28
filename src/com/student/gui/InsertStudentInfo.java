@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 import com.student.models.StudentInfo;
 import com.student.statics.CaseConversion;
+import com.student.statics.FramePosition;
 import com.student.storage.Database;
 import com.student.storage.FileOperation;
 
@@ -20,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -65,10 +68,29 @@ public class InsertStudentInfo {
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(249, 249, 249));
-		frame.setBounds(100, 100, 450, 300);
 		frame.setTitle("Student Information");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setSize(450, 300);
+		frame.setLocationRelativeTo(null);
+		frame.addComponentListener(new ComponentAdapter() {
+
+			@Override
+			public void componentMoved(ComponentEvent componentEvent) {
+
+				FramePosition.frameX = componentEvent.getComponent().getX();
+				FramePosition.frameY = componentEvent.getComponent().getY();
+			}
+		});
+
+		if (FramePosition.frameX == 0 || FramePosition.frameY == 0) {
+
+			frame.setLocationRelativeTo(null);
+		}
+
+		else
+
+			frame.setLocation(FramePosition.frameX, FramePosition.frameY);
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(249, 249, 249));

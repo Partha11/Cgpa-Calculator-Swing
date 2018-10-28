@@ -2,6 +2,9 @@ package com.student.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Rectangle;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -11,48 +14,50 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 
+import com.student.statics.FramePosition;
+
 public class LoadingScreen {
 
 	private JFrame frame;
 
 	public LoadingScreen() {
 		
-		EventQueue.invokeLater(new Runnable() {
-			
-			public void run() {
-				
-				try {
-					
-					initialize();
-					frame.setVisible(true);
-				} 
-				
-				catch (Exception e) {
-					
-					e.printStackTrace();
-				}
-			}
-		});
+		initialize();
+		frame.setVisible(true);
 	}
 
 	private void initialize() {
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 563, 394);
+		frame.setTitle("Loading");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
+		frame.setSize(345, 139);
+		
+		if (FramePosition.frameX == 0 || FramePosition.frameY == 0)
+
+			frame.setLocationRelativeTo(null);
+
+		else
+
+			frame.setLocation(FramePosition.frameX, FramePosition.frameY);
+		
+		System.out.println(FramePosition.frameX + " " + FramePosition.frameY);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(249, 249, 249));
+		panel.setBackground(new Color(255, 255, 255));
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel label = new JLabel("");
-		label.setBackground(new Color(255, 255, 255));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setIcon(new ImageIcon(SplashScreen.class.getResource("/com/student/animations/loading_5.gif")));
-		label.setBounds(124, 32, 308, 271);
+		label.setIcon(new ImageIcon(SplashScreen.class.getResource("/com/student/animations/loading_mini_2.gif")));
+		label.setBounds(92, 31, 50, 50);
 		panel.add(label);
+		
+		JLabel lblPleaseWait = new JLabel("Please Wait...");
+		lblPleaseWait.setBounds(151, 30, 114, 51);
+		panel.add(lblPleaseWait);
 	}
 	
 	public void stopAnimation() {

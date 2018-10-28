@@ -3,6 +3,8 @@ package com.student.gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 import javax.swing.BoxLayout;
@@ -12,6 +14,7 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.student.statics.FramePosition;
 import com.student.storage.FileOperation;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -99,9 +102,28 @@ public class SplashScreen {
 	private void initialize() {
 		
 		frame = new JFrame("Loading");
-		frame.setBounds(100, 100, 564, 397);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
+		frame.setSize(564, 397);
+		frame.setLocationRelativeTo(null);
+		frame.addComponentListener(new ComponentAdapter() {
+
+			@Override
+			public void componentMoved(ComponentEvent componentEvent) {
+
+				FramePosition.frameX = componentEvent.getComponent().getX();
+				FramePosition.frameY = componentEvent.getComponent().getY();
+			}
+		});
+
+		if (FramePosition.frameX == 0 || FramePosition.frameY == 0) {
+
+			frame.setLocationRelativeTo(null);
+		}
+
+		else
+
+			frame.setLocation(FramePosition.frameX, FramePosition.frameY);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(249, 249, 249));

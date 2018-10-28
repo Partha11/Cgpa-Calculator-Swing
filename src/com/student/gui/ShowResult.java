@@ -1,39 +1,44 @@
 package com.student.gui;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
-
 import com.student.calculator.Calculator;
-import com.student.gui.SplashScreen;
+import com.student.models.EighthSemester;
+import com.student.models.FifthSemester;
 import com.student.models.FirstSemester;
+import com.student.models.FourthSemester;
 import com.student.models.SecondSemester;
+import com.student.models.SeventhSemester;
+import com.student.models.SixthSemester;
 import com.student.models.StudentInfo;
 import com.student.models.ThirdSemester;
+import com.student.statics.FramePosition;
 import com.student.storage.Database;
 import com.student.storage.FileOperation;
-
-import javax.swing.JScrollPane;
-import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-import javax.swing.JButton;
-import javax.swing.AbstractAction;
-import java.awt.event.ActionEvent;
-import javax.swing.Action;
 
 public class ShowResult {
 
 	private JFrame frame;
-	private JFrame animateFrame;
 	
 	private DefaultTableModel tableModel;
 	private JTable table;
@@ -41,6 +46,11 @@ public class ShowResult {
 	private FirstSemester firstSemester;
 	private SecondSemester secondSemester;
 	private ThirdSemester thirdSemester;
+	private FourthSemester fourthSemester;
+	private FifthSemester fifthSemester;
+	private SixthSemester sixthSemester;
+	private SeventhSemester seventhSemester;
+	private EighthSemester eighthSemester;
 	
 	private StudentInfo studentInfo;
 	
@@ -53,23 +63,31 @@ public class ShowResult {
 	private double resultCgpa;
 	private double totalMarks;
 	
+	private LoadingScreen loadingScreen;
+	
 	private ArrayList<String> gradesList;
 	private ArrayList<String> subjectList;
 	private ArrayList<String> codesList;
-	private final Action action = new BackButtonListener();
-	private final Action action_1 = new HomeButtonListener();
+	
+	private final Action backButtonAction = new BackButtonListener();
+	private final Action homeButtonAction = new HomeButtonListener();
+	private final Action homeBtnBasicAction = new HomeButtonListenerMod();
+	
+	private static JDialog dialog;
 
 	public ShowResult() {
 		
-		EventQueue.invokeLater(new Runnable() {
+		loadingScreen = new LoadingScreen();
+		
+		new Thread(new Runnable() {
 			
 			public void run() {
 				
 				try {
 					
-					gradesList = new ArrayList<>();
-					codesList = new ArrayList<>();
-					subjectList = new ArrayList<>();
+					gradesList = null;
+					codesList = null;
+					subjectList = null;
 					
 					FileOperation fileOperation = new FileOperation();
 					Database database = new Database();
@@ -92,48 +110,146 @@ public class ShowResult {
 						
 							case 1:
 								
-								clearList();
-								
 								firstSemester = database.getFirstSemesterData(regNo);
-								gradesList = firstSemester.getGradesList();
-								codesList = firstSemester.getSubjectCodeList();
-								subjectList = firstSemester.getSubjectNameList();
+								
+								if (firstSemester != null) {
+									
+									gradesList = firstSemester.getGradesList();
+									codesList = firstSemester.getSubjectCodeList();
+									subjectList = firstSemester.getSubjectNameList();
+								}
+								
 								break;
 								
 							case 2:
 								
-								clearList();
-								
 								secondSemester = database.getSecondSemesterData(regNo);
-								gradesList = secondSemester.getGradesList();
-								codesList = secondSemester.getSubjectCodeList();
-								subjectList = secondSemester.getSubjectNameList();
+								
+								if (secondSemester != null) {
+								
+									gradesList = secondSemester.getGradesList();
+									codesList = secondSemester.getSubjectCodeList();
+									subjectList = secondSemester.getSubjectNameList();
+								}
+								
 								break;
 								
 							case 3:
 								
-								clearList();
-								
 								thirdSemester = database.getThirdSemesterData(regNo);
-								gradesList = thirdSemester.getGradesList();
-								codesList = thirdSemester.getSubjectCodeList();
-								subjectList = thirdSemester.getSubjectNameList();
+								
+								if (thirdSemester != null) {
+								
+									gradesList = thirdSemester.getGradesList();
+									codesList = thirdSemester.getSubjectCodeList();
+									subjectList = thirdSemester.getSubjectNameList();
+								}
+								
+								break;
+								
+							case 4:
+								
+								fourthSemester = database.getFourthSemesterData(regNo);
+								
+								if (fourthSemester != null) {
+								
+									gradesList = fourthSemester.getGradesList();
+									codesList = fourthSemester.getSubjectCodeList();
+									subjectList = fourthSemester.getSubjectNameList();
+								}
+								
+								break;
+								
+							case 5:
+								
+								fifthSemester = database.getFifthSemesterData(regNo);
+								
+								if (fifthSemester != null) {
+								
+									gradesList = fifthSemester.getGradesList();
+									codesList = fifthSemester.getSubjectCodeList();
+									subjectList = fifthSemester.getSubjectNameList();
+								}
+								
+								break;
+								
+							case 6:
+								
+								sixthSemester = database.getSixthSemesterData(regNo);
+								
+								if (sixthSemester != null) {
+								
+									gradesList = sixthSemester.getGradesList();
+									codesList = sixthSemester.getSubjectCodeList();
+									subjectList = sixthSemester.getSubjectNameList();
+								}
+									
+								break;
+								
+							case 7:
+								
+								seventhSemester = database.getSeventhSemesterData(regNo);
+								
+								if (seventhSemester != null) {
+								
+									gradesList = seventhSemester.getGradesList();
+									codesList = seventhSemester.getSubjectCodeList();
+									subjectList = seventhSemester.getSubjectNameList();
+								}
+								
+								break;
+								
+							case 8:
+								
+								eighthSemester = database.getEighthSemesterData(regNo);
+								
+								if (eighthSemester != null) {
+								
+									gradesList = eighthSemester.getGradesList();
+									codesList = eighthSemester.getSubjectCodeList();
+									subjectList = eighthSemester.getSubjectNameList();
+								}
+								
 								break;
 						}
 					}
-					
-					calculator = new Calculator(gradesList, SelectResultMethod.semester);
-					totalMarks = calculator.calculate();
-					resultCgpa = calculator.calculateCgpa(totalMarks);
-					
-					initialize();
-					frame.setVisible(true);
-					
-					for (int i = 0; i < gradesList.size(); i++) {
-						
-						Object[] rows = {subjectList.get(i), codesList.get(i), gradesList.get(i)};
-						tableModel.addRow(rows);
-					}
+
+					SwingUtilities.invokeLater(new Runnable() {
+
+						@Override
+						public void run() {
+
+							loadingScreen.stopAnimation();
+
+							if (gradesList == null) {
+
+								JButton button = new JButton("Close");
+								button.addActionListener(homeBtnBasicAction);
+
+								JOptionPane optionPane = new JOptionPane();
+								optionPane.setMessage("No Data Found!");
+								optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+								optionPane.setOptions(new Object[] { button });
+
+								dialog = optionPane.createDialog("Error");
+								dialog.setVisible(true);
+								return;
+							}
+
+							calculator = new Calculator(gradesList, SelectResultMethod.semester);
+							totalMarks = calculator.calculate();
+							resultCgpa = calculator.calculateCgpa(totalMarks);
+
+							initialize();
+							frame.setVisible(true);
+
+							for (int i = 0; i < gradesList.size(); i++) {
+
+								Object[] rows = { subjectList.get(i), codesList.get(i), gradesList.get(i) };
+								tableModel.addRow(rows);
+							}
+						}
+					});
 				}
 				
 				catch (Exception e) {
@@ -141,14 +257,7 @@ public class ShowResult {
 					e.printStackTrace();
 				}
 			}
-		});
-	}
-	
-	private void clearList() {
-		
-		gradesList.clear();
-		subjectList.clear();
-		codesList.clear();
+		}).start();
 	}
 
 	private void initialize() {
@@ -166,8 +275,10 @@ public class ShowResult {
 		
 		DefaultTableCellRenderer tableRenderer = new DefaultTableCellRenderer() {
             
+			private static final long serialVersionUID = 1L;
+
 			@Override
-            public Component getTableCellRendererComponent(JTable table, Object value,
+            public DefaultTableCellRenderer getTableCellRendererComponent(JTable table, Object value,
             		boolean isSelected, boolean hasFocus, int row, int column) {
                 super.getTableCellRendererComponent(table, value, isSelected,
                 		hasFocus, row, column);
@@ -188,9 +299,28 @@ public class ShowResult {
 		
 		frame = new JFrame("Result");
 		frame.getContentPane().setBackground(new Color(249, 249, 249));
-		frame.setBounds(100, 100, 622, 355);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setSize(622, 355);
+		frame.setLocationRelativeTo(null);
+		frame.addComponentListener(new ComponentAdapter() {
+
+			@Override
+			public void componentMoved(ComponentEvent componentEvent) {
+
+				FramePosition.frameX = componentEvent.getComponent().getX();
+				FramePosition.frameY = componentEvent.getComponent().getY();
+			}
+		});
+
+		if (FramePosition.frameX == 0 || FramePosition.frameY == 0) {
+
+			frame.setLocationRelativeTo(null);
+		}
+
+		else
+
+			frame.setLocation(FramePosition.frameX, FramePosition.frameY);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
@@ -250,32 +380,22 @@ public class ShowResult {
 		batchLabel.setText(studentInfo.getStudentBatch());
 		
 		JButton btnBack = new JButton("Back");
-		btnBack.setAction(action);
+		btnBack.setAction(backButtonAction);
 		btnBack.setFont(new Font("Cambria", Font.BOLD, 15));
 		btnBack.setBounds(407, 248, 74, 30);
 		frame.getContentPane().add(btnBack);
 		
 		JButton btnHome = new JButton("Home");
-		btnHome.setAction(action_1);
+		btnHome.setAction(homeButtonAction);
 		btnHome.setFont(new Font("Cambria", Font.BOLD, 15));
 		btnHome.setBounds(493, 248, 74, 30);
 		frame.getContentPane().add(btnHome);
 	}
 	
-	private void animate() {
-		
-		animateFrame = new JFrame("Loading");
-		animateFrame.setBounds(100, 100, 563, 394);
-		animateFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		ImageIcon loading = new ImageIcon("/com/student/animations/loading_5.gif");
-	    animateFrame.getContentPane().add(new JLabel("loading... ", loading, JLabel.CENTER));
-				
-		animateFrame.setVisible(true);
-	}
-	
 	private class BackButtonListener extends AbstractAction {
 		
+		private static final long serialVersionUID = 1L;
+
 		public BackButtonListener() {
 			
 			putValue(NAME, "Back");
@@ -291,6 +411,8 @@ public class ShowResult {
 	
 	private class HomeButtonListener extends AbstractAction {
 		
+		private static final long serialVersionUID = 1L;
+
 		public HomeButtonListener() {
 			
 			putValue(NAME, "Home");
@@ -299,6 +421,18 @@ public class ShowResult {
 		public void actionPerformed(ActionEvent e) {
 			
 			frame.dispose();
+			new MainMenu();
+			return;
+		}
+	}
+	
+	private class HomeButtonListenerMod extends AbstractAction {
+
+		private static final long serialVersionUID = 1L;
+
+		public void actionPerformed(ActionEvent e) {
+
+			dialog.dispose();
 			new MainMenu();
 			return;
 		}

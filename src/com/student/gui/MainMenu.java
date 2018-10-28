@@ -1,23 +1,23 @@
 package com.student.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.student.models.StudentInfo;
-import com.student.storage.*;
-
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.AbstractAction;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
-import javax.swing.Action;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.UIManager;
-import java.awt.Color;
-import javax.swing.JPanel;
+import com.student.statics.FramePosition;
+import com.student.storage.FileOperation;
 
 public class MainMenu {
 
@@ -31,8 +31,9 @@ public class MainMenu {
 	
 	private JButton btnResults;
 	
-	private final Action action = new SwingAction();
-	private final Action exitAction = new ExitAction();
+	private final Action resultAction = new ResultsButtonListener();
+	private final Action exitAction = new ExitButtonListener();
+	private final Action subjectAction = new SubjectButtonListener();
 
 	public MainMenu() {
 		
@@ -84,18 +85,41 @@ public class MainMenu {
 	private void initialize() {
 		
 		frame = new JFrame("Home");
-		frame.getContentPane().setBackground(new Color(249, 249, 249));
-		frame.setBounds(100, 100, 502, 327);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setSize(502, 327);
+		frame.setLocationRelativeTo(null);
+		frame.addComponentListener(new ComponentAdapter() {
+			
+			@Override
+			public void componentMoved(ComponentEvent componentEvent) {
+				
+				FramePosition.frameX = componentEvent.getComponent().getX();
+				FramePosition.frameY = componentEvent.getComponent().getY();
+				
+				System.out.println("Moved");
+			}
+		});
+		
+		if (FramePosition.frameX == 0 || FramePosition.frameY == 0) {
+			
+			frame.setLocationRelativeTo(null);
+		}
+		
+		else
+			
+			frame.setLocation(FramePosition.frameX, FramePosition.frameY);
+		
+		System.out.println(FramePosition.frameX + " " + FramePosition.frameY);
 		
 		btnResults = new JButton("Results");
-		btnResults.setAction(action);
+		btnResults.setAction(resultAction);
 		btnResults.setFont(new Font("Cambria", Font.BOLD, 15));
 		btnResults.setBounds(53, 99, 93, 30);
 		frame.getContentPane().add(btnResults);
 		
 		JButton btnSubjects = new JButton("Subjects");
+		btnSubjects.setAction(subjectAction);
 		btnSubjects.setBounds(53, 135, 93, 30);
 		btnSubjects.setFont(new Font("Cambria", Font.BOLD, 15));
 		frame.getContentPane().add(btnSubjects);
@@ -166,11 +190,11 @@ public class MainMenu {
 		panel.add(sessionLabel);
 	}
 	
-	private class SwingAction extends AbstractAction {
+	private class ResultsButtonListener extends AbstractAction {
 		
 		private static final long serialVersionUID = 1L;
 
-		public SwingAction() {
+		public ResultsButtonListener() {
 			
 			putValue(NAME, "Results");
 		}
@@ -183,9 +207,11 @@ public class MainMenu {
 		}
 	}
 	
-	private class ExitAction extends AbstractAction {
+	private class ExitButtonListener extends AbstractAction {
 		
-		public ExitAction() {
+		private static final long serialVersionUID = 1L;
+
+		public ExitButtonListener() {
 			
 			putValue(NAME, "Quit");
 		}
@@ -194,6 +220,18 @@ public class MainMenu {
 			
 			frame.dispose();
 			return;
+		}
+	}
+	private class SubjectButtonListener extends AbstractAction {
+		
+		private static final long serialVersionUID = 1L;
+
+		public SubjectButtonListener() {
+			
+			putValue(NAME, "Subjects");
+		}
+		
+		public void actionPerformed(ActionEvent e) {
 		}
 	}
 }
