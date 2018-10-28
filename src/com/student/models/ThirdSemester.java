@@ -2,52 +2,61 @@ package com.student.models;
 
 import java.util.ArrayList;
 
-public class ThirdSemester {
+public class ThirdSemester extends RootSemester {
 	
-	private ArrayList<String> gradesList;
-	private ArrayList<String> subjectNameList;
-	private ArrayList<String> subjectCodeList;
-
+	public ThirdSemester() {
+		
+		initAll();
+	}
+	
     public ThirdSemester(ArrayList<String> gradesList) {
 
-this.gradesList = gradesList;
-    	
-    	subjectNameList = new ArrayList<>();
-    	subjectCodeList = new ArrayList<>();
-    	
-    	subjectNameList.add("Object Oriented Programming");
-    	subjectNameList.add("Object Oriented Programming Practical");
-    	subjectNameList.add("Operating System");
-    	subjectNameList.add("Digital Logic Design");
-    	subjectNameList.add("Digital Logic Design Practical");
-    	subjectNameList.add("Mathematics For CSE");
-    	subjectNameList.add("Electronic Device And Circuits");
-    	subjectNameList.add("Electronic Device And Circuits Practical");
-    	subjectNameList.add("Basic Accounting");
-    	
-    	subjectCodeList.add("211");
-    	subjectCodeList.add("212");
-    	subjectCodeList.add("213");
-    	subjectCodeList.add("214");
-    	subjectCodeList.add("215");
-    	subjectCodeList.add("216");
-    	subjectCodeList.add("217");
-    	subjectCodeList.add("218");
-    	subjectCodeList.add("219");
+    	this.initAll();
+		this.gradesList = gradesList;
     }
 
+	@Override
+	public void initAll() {
+		
+		this.subjectNameList = new ArrayList<>();
+		this.subjectCodeList = new ArrayList<>();
+    	
+		this.subjectNameList.add("Object Oriented Programming");
+		this.subjectNameList.add("OOP Practical");
+		this.subjectNameList.add("Operating System");
+		this.subjectNameList.add("Digital Logic Design");
+		this.subjectNameList.add("DLD Practical");
+		this.subjectNameList.add("Mathematics For CSE");
+		this.subjectNameList.add("Electronic Device And Circuits");
+		this.subjectNameList.add("EDC Practical");
+		this.subjectNameList.add("Basic Accounting");
+    	
+		this.subjectCodeList.add("211");
+		this.subjectCodeList.add("212");
+		this.subjectCodeList.add("213");
+		this.subjectCodeList.add("214");
+		this.subjectCodeList.add("215");
+		this.subjectCodeList.add("216");
+		this.subjectCodeList.add("217");
+		this.subjectCodeList.add("218");
+		this.subjectCodeList.add("219");
+	}
+
+	@Override
 	public ArrayList<String> getGradesList() {
 		
 		return gradesList;
 	}
-	
-	public ArrayList<String> getSubjectNameList() {
-		
-		return subjectNameList;
-	}
 
+	@Override
 	public ArrayList<String> getSubjectCodeList() {
 		
 		return subjectCodeList;
+	}
+
+	@Override
+	public ArrayList<String> getSubjectNameList() {
+		
+		return subjectNameList;
 	}
 }

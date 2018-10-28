@@ -2,45 +2,57 @@ package com.student.models;
 
 import java.util.ArrayList;
 
-public class SixthSemester {
+public class SixthSemester extends RootSemester {
 
-	private ArrayList<String> gradesList;
-	private ArrayList<String> subjectNameList;
-	private ArrayList<String> subjectCodeList;
+	public SixthSemester() {
+		
+		initAll();
+	}
 	
 	public SixthSemester(ArrayList<String> gradesList) {
 		
 		this.gradesList = gradesList;
-		
-		subjectNameList.add("Software Engineering");
-    	subjectNameList.add("Software Engineering Practical");
-    	subjectNameList.add("Numerical Analysis");
-    	subjectNameList.add("Computer Graphics");
-    	subjectNameList.add("Computer Graphics Practical");
-    	subjectNameList.add("Compiler Design");
-    	subjectNameList.add("Compiler Design Practical");
-    	
-    	subjectCodeList.add("321");
-    	subjectCodeList.add("322");
-    	subjectCodeList.add("323");
-    	subjectCodeList.add("324");
-    	subjectCodeList.add("325");
-    	subjectCodeList.add("326");
-    	subjectCodeList.add("327");
+		this.initAll();
 	}
 
+	@Override
+	public void initAll() {
+		
+		this.subjectCodeList = new ArrayList<>();
+		this.subjectNameList = new ArrayList<>();
+		
+		this.subjectNameList.add("Software Engineering");
+    	this.subjectNameList.add("Software Engineering Practical");
+    	this.subjectNameList.add("Numerical Analysis");
+    	this.subjectNameList.add("Computer Graphics");
+    	this.subjectNameList.add("Computer Graphics Practical");
+    	this.subjectNameList.add("Compiler Design");
+    	this.subjectNameList.add("Compiler Design Practical");
+    	
+    	this.subjectCodeList.add("321");
+    	this.subjectCodeList.add("322");
+    	this.subjectCodeList.add("323");
+    	this.subjectCodeList.add("324");
+    	this.subjectCodeList.add("325");
+    	this.subjectCodeList.add("326");
+    	this.subjectCodeList.add("327");
+	}
+	
+	@Override
 	public ArrayList<String> getGradesList() {
 		
 		return gradesList;
 	}
 
-	public ArrayList<String> getSubjectNameList() {
-		
-		return subjectNameList;
-	}
-
+	@Override
 	public ArrayList<String> getSubjectCodeList() {
 		
 		return subjectCodeList;
+	}
+
+	@Override
+	public ArrayList<String> getSubjectNameList() {
+		
+		return subjectNameList;
 	}
 }

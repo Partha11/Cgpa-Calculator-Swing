@@ -2,45 +2,57 @@ package com.student.models;
 
 import java.util.ArrayList;
 
-public class FourthSemester {
-
-	private ArrayList<String> gradesList;
-	private ArrayList<String> subjectNameList;
-	private ArrayList<String> subjectCodeList;
+public class FourthSemester extends RootSemester {
 	
-	public FourthSemester(ArrayList<String> gradesList) {
+	public FourthSemester() {
 		
-		this.gradesList = gradesList;
-		
-		subjectNameList.add("Algorithm Design");
-    	subjectNameList.add("Algorithm Design Practical");
-    	subjectNameList.add("Database Management System");
-    	subjectNameList.add("Database Management System Practical");
-    	subjectNameList.add("Computer Organization and Architecture");
-    	subjectNameList.add("Data Communication");
-    	subjectNameList.add("Economics");
-    	
-    	subjectCodeList.add("221");
-    	subjectCodeList.add("222");
-    	subjectCodeList.add("223");
-    	subjectCodeList.add("224");
-    	subjectCodeList.add("225");
-    	subjectCodeList.add("226");
-    	subjectCodeList.add("227");    	
+		initAll();
 	}
 
+	public FourthSemester(ArrayList<String> gradesList) {
+		
+		this.gradesList = gradesList; 
+		this.initAll();
+	}
+
+	@Override
+	public void initAll() {
+
+		this.subjectCodeList = new ArrayList<>();
+		this.subjectNameList = new ArrayList<>();
+		
+		this.subjectNameList.add("Algorithm Design");
+    	this.subjectNameList.add("Algorithm Design Practical");
+    	this.subjectNameList.add("Database Management System");
+    	this.subjectNameList.add("DBMS Practical");
+    	this.subjectNameList.add("Computer Organization and Architecture");
+    	this.subjectNameList.add("Data Communication");
+    	this.subjectNameList.add("Economics");
+    	
+    	this.subjectCodeList.add("221");
+    	this.subjectCodeList.add("222");
+    	this.subjectCodeList.add("223");
+    	this.subjectCodeList.add("224");
+    	this.subjectCodeList.add("225");
+    	this.subjectCodeList.add("226");
+    	this.subjectCodeList.add("227");
+	}
+
+	@Override
 	public ArrayList<String> getGradesList() {
 		
 		return gradesList;
 	}
 
-	public ArrayList<String> getSubjectNameList() {
-		
-		return subjectNameList;
-	}
-
+	@Override
 	public ArrayList<String> getSubjectCodeList() {
 		
 		return subjectCodeList;
+	}
+
+	@Override
+	public ArrayList<String> getSubjectNameList() {
+		
+		return subjectNameList;
 	}
 }

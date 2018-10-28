@@ -4,9 +4,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.student.gui.SelectResultMethod;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 public class Calculator {
 
 	private ArrayList<String> gradesList;
@@ -20,6 +17,13 @@ public class Calculator {
 	
 	private HashMap<String, Double> gradeMap;
 	
+	public Calculator(int semester) {
+		
+		this.semester = semester;
+		
+		initIndex();
+	}
+	
 	public Calculator(ArrayList<String> gradesList, int semester) {
 		
 		this.gradesList = gradesList;
@@ -28,6 +32,61 @@ public class Calculator {
 		initMap();
 		initIndex();
 		initCredits();
+	}
+	
+	public ArrayList<Integer> getIndexList() {
+		
+		return indexList;
+	}
+
+	public int toSubject(int semester) {
+		
+		int subject = 0;
+		
+		switch (semester) {
+		
+			case 1:
+				
+				subject = 6;
+				break;
+				
+			case 2:
+				
+				subject = 7;
+				break;
+				
+			case 3:
+				
+				subject = 9;
+				break;
+				
+			case 4:
+				
+				subject = 7;
+				break;
+				
+			case 5:
+				
+				subject = 6;
+				break;
+				
+			case 6:
+				
+				subject = 7;
+				break;
+				
+			case 7:
+				
+				subject = 7;
+				break;
+				
+			case 8:
+				
+				subject = 5;
+				break;
+		}
+		
+		return subject;
 	}
 	
 	private void initMap() {

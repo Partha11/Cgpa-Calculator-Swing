@@ -27,11 +27,13 @@ import com.student.models.EighthSemester;
 import com.student.models.FifthSemester;
 import com.student.models.FirstSemester;
 import com.student.models.FourthSemester;
+import com.student.models.RootSemester;
 import com.student.models.SecondSemester;
 import com.student.models.SeventhSemester;
 import com.student.models.SixthSemester;
 import com.student.models.StudentInfo;
 import com.student.models.ThirdSemester;
+import com.student.statics.CaseConversion;
 import com.student.statics.FramePosition;
 import com.student.storage.Database;
 import com.student.storage.FileOperation;
@@ -43,14 +45,7 @@ public class ShowResult {
 	private DefaultTableModel tableModel;
 	private JTable table;
 	
-	private FirstSemester firstSemester;
-	private SecondSemester secondSemester;
-	private ThirdSemester thirdSemester;
-	private FourthSemester fourthSemester;
-	private FifthSemester fifthSemester;
-	private SixthSemester sixthSemester;
-	private SeventhSemester seventhSemester;
-	private EighthSemester eighthSemester;
+	private RootSemester rootSemester;
 	
 	private StudentInfo studentInfo;
 	
@@ -75,6 +70,9 @@ public class ShowResult {
 	
 	private static JDialog dialog;
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public ShowResult() {
 		
 		loadingScreen = new LoadingScreen();
@@ -84,10 +82,6 @@ public class ShowResult {
 			public void run() {
 				
 				try {
-					
-					gradesList = null;
-					codesList = null;
-					subjectList = null;
 					
 					FileOperation fileOperation = new FileOperation();
 					Database database = new Database();
@@ -110,110 +104,58 @@ public class ShowResult {
 						
 							case 1:
 								
-								firstSemester = database.getFirstSemesterData(regNo);
-								
-								if (firstSemester != null) {
-									
-									gradesList = firstSemester.getGradesList();
-									codesList = firstSemester.getSubjectCodeList();
-									subjectList = firstSemester.getSubjectNameList();
-								}
-								
+								rootSemester = new FirstSemester();
+								rootSemester = database.getFirstSemesterData(regNo);
 								break;
 								
 							case 2:
 								
-								secondSemester = database.getSecondSemesterData(regNo);
-								
-								if (secondSemester != null) {
-								
-									gradesList = secondSemester.getGradesList();
-									codesList = secondSemester.getSubjectCodeList();
-									subjectList = secondSemester.getSubjectNameList();
-								}
-								
+								rootSemester = new SecondSemester();
+								rootSemester = database.getSecondSemesterData(regNo);
 								break;
 								
 							case 3:
 								
-								thirdSemester = database.getThirdSemesterData(regNo);
-								
-								if (thirdSemester != null) {
-								
-									gradesList = thirdSemester.getGradesList();
-									codesList = thirdSemester.getSubjectCodeList();
-									subjectList = thirdSemester.getSubjectNameList();
-								}
-								
+								rootSemester = new ThirdSemester();
+								rootSemester = database.getThirdSemesterData(regNo);
 								break;
 								
 							case 4:
 								
-								fourthSemester = database.getFourthSemesterData(regNo);
-								
-								if (fourthSemester != null) {
-								
-									gradesList = fourthSemester.getGradesList();
-									codesList = fourthSemester.getSubjectCodeList();
-									subjectList = fourthSemester.getSubjectNameList();
-								}
-								
+								rootSemester = new FourthSemester();
+								rootSemester = database.getFourthSemesterData(regNo);
 								break;
 								
 							case 5:
 								
-								fifthSemester = database.getFifthSemesterData(regNo);
-								
-								if (fifthSemester != null) {
-								
-									gradesList = fifthSemester.getGradesList();
-									codesList = fifthSemester.getSubjectCodeList();
-									subjectList = fifthSemester.getSubjectNameList();
-								}
-								
+								rootSemester = new FifthSemester();
+								rootSemester = database.getFifthSemesterData(regNo);
 								break;
 								
 							case 6:
 								
-								sixthSemester = database.getSixthSemesterData(regNo);
-								
-								if (sixthSemester != null) {
-								
-									gradesList = sixthSemester.getGradesList();
-									codesList = sixthSemester.getSubjectCodeList();
-									subjectList = sixthSemester.getSubjectNameList();
-								}
-									
+								rootSemester = new SixthSemester();
+								rootSemester = database.getSixthSemesterData(regNo);
 								break;
 								
 							case 7:
 								
-								seventhSemester = database.getSeventhSemesterData(regNo);
-								
-								if (seventhSemester != null) {
-								
-									gradesList = seventhSemester.getGradesList();
-									codesList = seventhSemester.getSubjectCodeList();
-									subjectList = seventhSemester.getSubjectNameList();
-								}
-								
+								rootSemester = new SeventhSemester();
+								rootSemester = database.getSeventhSemesterData(regNo);
 								break;
 								
 							case 8:
 								
-								eighthSemester = database.getEighthSemesterData(regNo);
-								
-								if (eighthSemester != null) {
-								
-									gradesList = eighthSemester.getGradesList();
-									codesList = eighthSemester.getSubjectCodeList();
-									subjectList = eighthSemester.getSubjectNameList();
-								}
-								
+								rootSemester = new EighthSemester();
+								rootSemester = database.getEighthSemesterData(regNo);
 								break;
 						}
 					}
-
+					
+					gradesList = rootSemester.getGradesList();
+					codesList = rootSemester.getSubjectCodeList();
+					subjectList = rootSemester.getSubjectNameList();
+					
 					SwingUtilities.invokeLater(new Runnable() {
 
 						@Override
@@ -375,7 +317,9 @@ public class ShowResult {
 		batchLabel.setBounds(406, 108, 154, 19);
 		frame.getContentPane().add(batchLabel);
 		
-		nameLabel.setText(studentInfo.getStudentName());
+		
+		String name = CaseConversion.getSmallName(CaseConversion.toCamelCase(studentInfo.getStudentName()));
+		nameLabel.setText(name);
 		regNoLabel.setText(studentInfo.getStudentRegNo());
 		batchLabel.setText(studentInfo.getStudentBatch());
 		

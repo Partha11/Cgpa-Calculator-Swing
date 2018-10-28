@@ -278,6 +278,7 @@ public class Database {
         			gradesList.add(resultSet.getString("219"));
 
         			thirdSemester = new ThirdSemester(gradesList);
+        			System.out.println(gradesList.toString());
         		}
 
         		connection.close();

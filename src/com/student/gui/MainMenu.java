@@ -16,8 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.student.models.StudentInfo;
+import com.student.statics.CaseConversion;
 import com.student.statics.FramePosition;
 import com.student.storage.FileOperation;
+import java.awt.event.ActionListener;
 
 public class MainMenu {
 
@@ -51,18 +53,9 @@ public class MainMenu {
 					if (checkFile()) {
 						
 						StudentInfo studentInfo = fileOperation.readFile();
-						String fullNameCamelCase = studentInfo.getStudentName();
+						String fullNameCamelCase = CaseConversion.getSmallName(studentInfo.getStudentName());
 						
-						if (fullNameCamelCase.length() > 20) {
-							
-							String name[] = fullNameCamelCase.split(" ");
-							nameLabel.setText(name[0] + " " + name[name.length - 1]);
-						}
-						
-						else
-							
-							nameLabel.setText(fullNameCamelCase);
-						
+						nameLabel.setText(fullNameCamelCase);
 						batchLabel.setText(studentInfo.getStudentBatch());
 						regNoLabel.setText(studentInfo.getStudentRegNo());
 						sessionLabel.setText(studentInfo.getStudentSession());
@@ -85,6 +78,7 @@ public class MainMenu {
 	private void initialize() {
 		
 		frame = new JFrame("Home");
+		frame.getContentPane().setBackground(new Color(249, 249, 249));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setSize(502, 327);
@@ -96,21 +90,16 @@ public class MainMenu {
 				
 				FramePosition.frameX = componentEvent.getComponent().getX();
 				FramePosition.frameY = componentEvent.getComponent().getY();
-				
-				System.out.println("Moved");
 			}
 		});
 		
-		if (FramePosition.frameX == 0 || FramePosition.frameY == 0) {
+		if (FramePosition.frameX == 0 || FramePosition.frameY == 0)
 			
 			frame.setLocationRelativeTo(null);
-		}
 		
 		else
 			
 			frame.setLocation(FramePosition.frameX, FramePosition.frameY);
-		
-		System.out.println(FramePosition.frameX + " " + FramePosition.frameY);
 		
 		btnResults = new JButton("Results");
 		btnResults.setAction(resultAction);
@@ -119,6 +108,15 @@ public class MainMenu {
 		frame.getContentPane().add(btnResults);
 		
 		JButton btnSubjects = new JButton("Subjects");
+		btnSubjects.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				frame.dispose();
+				new SelectSemester();
+				return;
+			}
+		});
 		btnSubjects.setAction(subjectAction);
 		btnSubjects.setBounds(53, 135, 93, 30);
 		btnSubjects.setFont(new Font("Cambria", Font.BOLD, 15));
@@ -222,6 +220,7 @@ public class MainMenu {
 			return;
 		}
 	}
+	
 	private class SubjectButtonListener extends AbstractAction {
 		
 		private static final long serialVersionUID = 1L;

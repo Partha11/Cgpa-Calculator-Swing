@@ -32,4 +32,23 @@ public class CaseConversion {
 		
 		return camelCase.toString();
 	}
+	
+	public static String getSmallName(String text) {
+		
+		if (text.length() > 20) {
+			
+			StringBuilder smallName = new StringBuilder();
+			String[] partName = text.split(" ");
+			
+			smallName.append(partName[0]);
+			smallName.append(" ");
+			smallName.append(partName[partName.length - 1]);
+			
+			return smallName.toString();
+		}
+		
+		else
+			
+			return text;
+	}
 }
