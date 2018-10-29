@@ -11,7 +11,7 @@ import org.w3c.dom.*;
 
 public class FileOperation {
 
-	public static final String FILENAME = "studentinfo.xml";
+	public static final String FILENAME = "data.xml";
     
     public boolean isFileAvailable() {
     	

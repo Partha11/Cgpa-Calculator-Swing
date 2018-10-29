@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import com.student.models.StudentInfo;
 import com.student.statics.CaseConversion;
@@ -52,6 +53,25 @@ public class InsertStudentInfo {
 					
 					initialize();
 					frame.setVisible(true);
+					
+					SwingUtilities.invokeLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							
+							frame.addComponentListener(new ComponentAdapter() {
+								
+								@Override
+								public void componentMoved(ComponentEvent componentEvent) {
+									
+									FramePosition.frameX = componentEvent.getComponent().getX();
+									FramePosition.frameY = componentEvent.getComponent().getY();
+									
+									System.out.println(componentEvent.getComponent().getInputContext().toString());
+								}
+							});
+						}
+					});
 				} 
 				
 				catch (Exception e) {
@@ -73,16 +93,8 @@ public class InsertStudentInfo {
 		frame.getContentPane().setLayout(null);
 		frame.setSize(450, 300);
 		frame.setLocationRelativeTo(null);
-		frame.addComponentListener(new ComponentAdapter() {
-
-			@Override
-			public void componentMoved(ComponentEvent componentEvent) {
-
-				FramePosition.frameX = componentEvent.getComponent().getX();
-				FramePosition.frameY = componentEvent.getComponent().getY();
-			}
-		});
-
+		frame.setResizable(false);
+		
 		if (FramePosition.frameX == 0 || FramePosition.frameY == 0) {
 
 			frame.setLocationRelativeTo(null);
@@ -99,35 +111,36 @@ public class InsertStudentInfo {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Registration No:");
-		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblNewLabel.setFont(SplashScreen.CambriaBold);
 		lblNewLabel.setBounds(12, 25, 124, 19);
 		panel.add(lblNewLabel);
 		
 		textField = new JTextField();
-		textField.setFont(new Font("Cambria", Font.PLAIN, 15));
+		textField.setFont(SplashScreen.Cambria);
 		textField.setBounds(154, 20, 124, 25);
 		panel.add(textField);
-		textField.setColumns(10);
 		
 		JLabel lblBatch = new JLabel("Batch:");
-		lblBatch.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblBatch.setFont(SplashScreen.CambriaBold);
 		lblBatch.setBounds(12, 56, 67, 19);
 		panel.add(lblBatch);
 		
 		comboBox = new JComboBox(comboBoxModel);
-		comboBox.setFont(new Font("Cambria", Font.BOLD, 15));
+		comboBox.setFont(SplashScreen.CambriaBold);
 		comboBox.setBounds(154, 53, 124, 25);
 		panel.add(comboBox);
 		
 		btnSave = new JButton("Save");
 		btnSave.setAction(action);
 		btnSave.setBounds(94, 123, 92, 30);
-		btnSave.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnSave.setFont(SplashScreen.CambriaBold);
 		panel.add(btnSave);
 	}
 	
 	private class SwingAction extends AbstractAction {
 		
+		private static final long serialVersionUID = 1L;
+
 		public SwingAction() {
 			
 			putValue(NAME, "Save");

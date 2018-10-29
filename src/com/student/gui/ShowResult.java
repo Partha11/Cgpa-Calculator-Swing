@@ -152,9 +152,12 @@ public class ShowResult {
 						}
 					}
 					
-					gradesList = rootSemester.getGradesList();
-					codesList = rootSemester.getSubjectCodeList();
-					subjectList = rootSemester.getSubjectNameList();
+					if (rootSemester != null) {
+					
+						gradesList = rootSemester.getGradesList();
+						codesList = rootSemester.getSubjectCodeList();
+						subjectList = rootSemester.getSubjectNameList();
+					}
 					
 					SwingUtilities.invokeLater(new Runnable() {
 
@@ -184,6 +187,15 @@ public class ShowResult {
 
 							initialize();
 							frame.setVisible(true);
+							frame.addComponentListener(new ComponentAdapter() {
+
+								@Override
+								public void componentMoved(ComponentEvent componentEvent) {
+
+									FramePosition.frameX = componentEvent.getComponent().getX();
+									FramePosition.frameY = componentEvent.getComponent().getY();
+								}
+							});
 
 							for (int i = 0; i < gradesList.size(); i++) {
 
@@ -227,7 +239,7 @@ public class ShowResult {
                 
                 if (column == 2)
                 
-                	setForeground(Color.GREEN);
+                	setForeground(Color.BLUE);
                 
                 else
                     
@@ -245,15 +257,7 @@ public class ShowResult {
 		frame.getContentPane().setLayout(null);
 		frame.setSize(622, 355);
 		frame.setLocationRelativeTo(null);
-		frame.addComponentListener(new ComponentAdapter() {
-
-			@Override
-			public void componentMoved(ComponentEvent componentEvent) {
-
-				FramePosition.frameX = componentEvent.getComponent().getX();
-				FramePosition.frameY = componentEvent.getComponent().getY();
-			}
-		});
+		frame.setResizable(false);
 
 		if (FramePosition.frameX == 0 || FramePosition.frameY == 0) {
 
@@ -271,9 +275,10 @@ public class ShowResult {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
+		SplashScreen.Cambria = SplashScreen.Cambria.deriveFont(14f);
 		table = new JTable(tableModel);
 		table.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		table.setFont(new Font("Verdana", Font.PLAIN, 12));
+		table.setFont(SplashScreen.Cambria);
 		table.setFocusable(false);
 		table.setRowSelectionAllowed(false);
 		table.setRowHeight(30);
@@ -282,6 +287,7 @@ public class ShowResult {
 		table.getColumnModel().getColumn(1).setCellRenderer(tableRenderer);
 		table.getColumnModel().getColumn(2).setCellRenderer(tableRenderer);
 		table.setBounds(12, 12, 294, 266);
+		SplashScreen.Cambria = SplashScreen.Cambria.deriveFont(15f);
 		
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 0, 357, 290);
@@ -289,31 +295,31 @@ public class ShowResult {
 		panel.add(scrollPane);
 		
 		JLabel lblTotal = new JLabel("Total :");
-		lblTotal.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblTotal.setFont(SplashScreen.CambriaBold);
 		lblTotal.setForeground(new Color(0, 102, 255));
 		lblTotal.setText("Total: " + String.valueOf(totalMarks));
 		lblTotal.setBounds(406, 155, 103, 19);
 		frame.getContentPane().add(lblTotal);
 		
 		JLabel lblNewLabel = new JLabel("CGPA : ");
-		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblNewLabel.setFont(SplashScreen.CambriaBold);
 		lblNewLabel.setForeground(new Color(0, 102, 255));
 		lblNewLabel.setText("CGPA : " + String.valueOf(resultCgpa));
 		lblNewLabel.setBounds(406, 176, 103, 19);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel nameLabel = new JLabel("Name");
-		nameLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		nameLabel.setFont(SplashScreen.CambriaBold);
 		nameLabel.setBounds(406, 54, 204, 19);
 		frame.getContentPane().add(nameLabel);
 		
 		JLabel regNoLabel = new JLabel("Registration No");
-		regNoLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		regNoLabel.setFont(SplashScreen.CambriaBold);
 		regNoLabel.setBounds(406, 81, 204, 19);
 		frame.getContentPane().add(regNoLabel);
 		
 		JLabel batchLabel = new JLabel("Batch");
-		batchLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		batchLabel.setFont(SplashScreen.CambriaBold);
 		batchLabel.setBounds(406, 108, 154, 19);
 		frame.getContentPane().add(batchLabel);
 		
@@ -325,13 +331,13 @@ public class ShowResult {
 		
 		JButton btnBack = new JButton("Back");
 		btnBack.setAction(backButtonAction);
-		btnBack.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnBack.setFont(SplashScreen.CambriaBold);
 		btnBack.setBounds(407, 248, 74, 30);
 		frame.getContentPane().add(btnBack);
 		
 		JButton btnHome = new JButton("Home");
 		btnHome.setAction(homeButtonAction);
-		btnHome.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnHome.setFont(SplashScreen.CambriaBold);
 		btnHome.setBounds(493, 248, 74, 30);
 		frame.getContentPane().add(btnHome);
 	}

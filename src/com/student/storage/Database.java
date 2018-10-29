@@ -176,25 +176,35 @@ public class Database {
 
         	try {
 
+        		boolean isEmpty = true;
         		String query = "SELECT * FROM FirstSemester WHERE reg_no = " + regNo;
 
         		Statement statement = connection.createStatement();
         		ResultSet resultSet = statement.executeQuery(query);
-
-        		while (resultSet.next()) {
+        		
+        		if (resultSet.next()) {
         			
-        			ArrayList<String> gradesList = new ArrayList<String>();
-        			
-        			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("111"));
-        			gradesList.add(resultSet.getString("112"));
-        			gradesList.add(resultSet.getString("113"));
-        			gradesList.add(resultSet.getString("114"));
-        			gradesList.add(resultSet.getString("115"));
-        			gradesList.add(resultSet.getString("116"));
+        			isEmpty = false;
 
-        			firstSemester = new FirstSemester(gradesList);
+					do {
+
+						ArrayList<String> gradesList = new ArrayList<String>();
+
+						String reg_no = resultSet.getString("reg_no");
+						gradesList.add(resultSet.getString("111"));
+						gradesList.add(resultSet.getString("112"));
+						gradesList.add(resultSet.getString("113"));
+						gradesList.add(resultSet.getString("114"));
+						gradesList.add(resultSet.getString("115"));
+						gradesList.add(resultSet.getString("116"));
+
+						firstSemester = new FirstSemester(gradesList);
+					} while (resultSet.next());
         		}
+        		
+        		if (isEmpty)
+        			
+        			return null;
 
         		connection.close();
         	}
@@ -211,6 +221,7 @@ public class Database {
     public SecondSemester getSecondSemesterData(String regNo) {
 
         SecondSemester secondSemester = null;
+        boolean isEmpty = true;
         
         if (initDatabase()) {
 
@@ -221,21 +232,30 @@ public class Database {
         		Statement statement = connection.createStatement();
         		ResultSet resultSet = statement.executeQuery(query);
 
-        		while (resultSet.next()) {
-        			
-        			ArrayList<String> gradesList = new ArrayList<String>();
-        			
-        			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("121"));
-        			gradesList.add(resultSet.getString("122"));
-        			gradesList.add(resultSet.getString("123"));
-        			gradesList.add(resultSet.getString("124"));
-        			gradesList.add(resultSet.getString("125"));
-        			gradesList.add(resultSet.getString("126"));
-        			gradesList.add(resultSet.getString("127"));
+        		if (resultSet.next()) {
 
-        			secondSemester = new SecondSemester(gradesList);
+        			isEmpty = false;
+        			
+        			do {
+
+						ArrayList<String> gradesList = new ArrayList<String>();
+
+						String reg_no = resultSet.getString("reg_no");
+						gradesList.add(resultSet.getString("121"));
+						gradesList.add(resultSet.getString("122"));
+						gradesList.add(resultSet.getString("123"));
+						gradesList.add(resultSet.getString("124"));
+						gradesList.add(resultSet.getString("125"));
+						gradesList.add(resultSet.getString("126"));
+						gradesList.add(resultSet.getString("127"));
+
+						secondSemester = new SecondSemester(gradesList);
+					} while (resultSet.next());
         		}
+        		
+        		if (isEmpty)
+        			
+        			return null;
 
         		connection.close();
         	}
@@ -258,28 +278,38 @@ public class Database {
         	try {
 
         		String query = "SELECT * FROM ThirdSemester WHERE reg_no = " + regNo;
+        		boolean isEmpty = true;
 
         		Statement statement = connection.createStatement();
         		ResultSet resultSet = statement.executeQuery(query);
 
-        		while (resultSet.next()) {
+        		if (resultSet.next()) {
         			
-        			ArrayList<String> gradesList = new ArrayList<String>();
-        			
-        			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("211"));
-        			gradesList.add(resultSet.getString("212"));
-        			gradesList.add(resultSet.getString("213"));
-        			gradesList.add(resultSet.getString("214"));
-        			gradesList.add(resultSet.getString("215"));
-        			gradesList.add(resultSet.getString("216"));
-        			gradesList.add(resultSet.getString("217"));
-        			gradesList.add(resultSet.getString("218"));
-        			gradesList.add(resultSet.getString("219"));
+        			isEmpty = false;
 
-        			thirdSemester = new ThirdSemester(gradesList);
-        			System.out.println(gradesList.toString());
+        			do {
+
+						ArrayList<String> gradesList = new ArrayList<String>();
+
+						String reg_no = resultSet.getString("reg_no");
+						gradesList.add(resultSet.getString("211"));
+						gradesList.add(resultSet.getString("212"));
+						gradesList.add(resultSet.getString("213"));
+						gradesList.add(resultSet.getString("214"));
+						gradesList.add(resultSet.getString("215"));
+						gradesList.add(resultSet.getString("216"));
+						gradesList.add(resultSet.getString("217"));
+						gradesList.add(resultSet.getString("218"));
+						gradesList.add(resultSet.getString("219"));
+
+						thirdSemester = new ThirdSemester(gradesList);
+						System.out.println(gradesList.toString());
+					} while (resultSet.next());
         		}
+        		
+        		if (isEmpty)
+        			
+        			return null;
 
         		connection.close();
         	}
@@ -302,25 +332,35 @@ public class Database {
         	try {
 
         		String query = "SELECT * FROM FourthSemester WHERE reg_no = " + regNo;
+        		boolean isEmpty = true;
 
         		Statement statement = connection.createStatement();
         		ResultSet resultSet = statement.executeQuery(query);
 
-        		while (resultSet.next()) {
+        		if (resultSet.next()) {
         			
-        			ArrayList<String> gradesList = new ArrayList<String>();
+        			isEmpty = false;
         			
-        			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("221"));
-        			gradesList.add(resultSet.getString("222"));
-        			gradesList.add(resultSet.getString("223"));
-        			gradesList.add(resultSet.getString("224"));
-        			gradesList.add(resultSet.getString("225"));
-        			gradesList.add(resultSet.getString("226"));
-        			gradesList.add(resultSet.getString("227"));
+					do {
 
-        			fourthSemester = new FourthSemester(gradesList);
+						ArrayList<String> gradesList = new ArrayList<String>();
+
+						String reg_no = resultSet.getString("reg_no");
+						gradesList.add(resultSet.getString("221"));
+						gradesList.add(resultSet.getString("222"));
+						gradesList.add(resultSet.getString("223"));
+						gradesList.add(resultSet.getString("224"));
+						gradesList.add(resultSet.getString("225"));
+						gradesList.add(resultSet.getString("226"));
+						gradesList.add(resultSet.getString("227"));
+
+						fourthSemester = new FourthSemester(gradesList);
+					} while (resultSet.next());
         		}
+        		
+        		if (isEmpty)
+        			
+        			return null;
 
         		connection.close();
         	}
@@ -343,24 +383,34 @@ public class Database {
         	try {
 
         		String query = "SELECT * FROM FifthSemester WHERE reg_no = " + regNo;
+        		boolean isEmpty = true;
 
         		Statement statement = connection.createStatement();
         		ResultSet resultSet = statement.executeQuery(query);
 
-        		while (resultSet.next()) {
+        		if (resultSet.next()) {
         			
-        			ArrayList<String> gradesList = new ArrayList<String>();
+        			isEmpty = false;
         			
-        			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("311"));
-        			gradesList.add(resultSet.getString("312"));
-        			gradesList.add(resultSet.getString("313"));
-        			gradesList.add(resultSet.getString("314"));
-        			gradesList.add(resultSet.getString("315"));
-        			gradesList.add(resultSet.getString("316"));
+					do {
 
-        			fifthSemester = new FifthSemester(gradesList);
+						ArrayList<String> gradesList = new ArrayList<String>();
+
+						String reg_no = resultSet.getString("reg_no");
+						gradesList.add(resultSet.getString("311"));
+						gradesList.add(resultSet.getString("312"));
+						gradesList.add(resultSet.getString("313"));
+						gradesList.add(resultSet.getString("314"));
+						gradesList.add(resultSet.getString("315"));
+						gradesList.add(resultSet.getString("316"));
+
+						fifthSemester = new FifthSemester(gradesList);
+					} while (resultSet.next());
         		}
+        		
+        		if (isEmpty)
+        			
+        			return null;
 
         		connection.close();
         	}
@@ -383,25 +433,35 @@ public class Database {
         	try {
 
         		String query = "SELECT * FROM SixthSemester WHERE reg_no = " + regNo;
+        		boolean isEmpty = true;
 
         		Statement statement = connection.createStatement();
         		ResultSet resultSet = statement.executeQuery(query);
 
-        		while (resultSet.next()) {
+        		if (resultSet.next()) {
         			
-        			ArrayList<String> gradesList = new ArrayList<String>();
+        			isEmpty = false;
         			
-        			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("321"));
-        			gradesList.add(resultSet.getString("322"));
-        			gradesList.add(resultSet.getString("323"));
-        			gradesList.add(resultSet.getString("324"));
-        			gradesList.add(resultSet.getString("325"));
-        			gradesList.add(resultSet.getString("326"));
-        			gradesList.add(resultSet.getString("327"));
-        			
-        			sixthSemester = new SixthSemester(gradesList);
+					do {
+
+						ArrayList<String> gradesList = new ArrayList<String>();
+
+						String reg_no = resultSet.getString("reg_no");
+						gradesList.add(resultSet.getString("321"));
+						gradesList.add(resultSet.getString("322"));
+						gradesList.add(resultSet.getString("323"));
+						gradesList.add(resultSet.getString("324"));
+						gradesList.add(resultSet.getString("325"));
+						gradesList.add(resultSet.getString("326"));
+						gradesList.add(resultSet.getString("327"));
+
+						sixthSemester = new SixthSemester(gradesList);
+					} while (resultSet.next());
         		}
+        		
+        		if (isEmpty)
+        			
+        			return null;
 
         		connection.close();
         	}
@@ -424,25 +484,35 @@ public class Database {
         	try {
 
         		String query = "SELECT * FROM SeventhSemester WHERE reg_no = " + regNo;
+        		boolean isEmpty = true;
 
         		Statement statement = connection.createStatement();
         		ResultSet resultSet = statement.executeQuery(query);
 
-        		while (resultSet.next()) {
-        			
-        			ArrayList<String> gradesList = new ArrayList<String>();
-        			
-        			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("411"));
-        			gradesList.add(resultSet.getString("412"));
-        			gradesList.add(resultSet.getString("413"));
-        			gradesList.add(resultSet.getString("414"));
-        			gradesList.add(resultSet.getString("415"));
-        			gradesList.add(resultSet.getString("416"));
-        			gradesList.add(resultSet.getString("417"));
+        		if (resultSet.next()) {
 
-        			seventhSemester = new SeventhSemester(gradesList);
+        			isEmpty = false;
+        			
+        			do {
+
+						ArrayList<String> gradesList = new ArrayList<String>();
+
+						String reg_no = resultSet.getString("reg_no");
+						gradesList.add(resultSet.getString("411"));
+						gradesList.add(resultSet.getString("412"));
+						gradesList.add(resultSet.getString("413"));
+						gradesList.add(resultSet.getString("414"));
+						gradesList.add(resultSet.getString("415"));
+						gradesList.add(resultSet.getString("416"));
+						gradesList.add(resultSet.getString("417"));
+
+						seventhSemester = new SeventhSemester(gradesList);
+					} while (resultSet.next());
         		}
+        		
+        		if (isEmpty)
+        			
+        			return null;
 
         		connection.close();
         	}
@@ -465,23 +535,33 @@ public class Database {
         	try {
 
         		String query = "SELECT * FROM EighthSemester WHERE reg_no = " + regNo;
+        		boolean isEmpty = true;
 
         		Statement statement = connection.createStatement();
         		ResultSet resultSet = statement.executeQuery(query);
 
-        		while (resultSet.next()) {
+        		if (resultSet.next()) {
         			
-        			ArrayList<String> gradesList = new ArrayList<String>();
-        			
-        			String reg_no = resultSet.getString("reg_no");
-        			gradesList.add(resultSet.getString("421"));
-        			gradesList.add(resultSet.getString("422"));
-        			gradesList.add(resultSet.getString("423"));
-        			gradesList.add(resultSet.getString("42x"));
-        			gradesList.add(resultSet.getString("429"));
+        			isEmpty = false;
 
-        			eighthSemester = new EighthSemester(gradesList);
+        			do {
+
+						ArrayList<String> gradesList = new ArrayList<String>();
+
+						String reg_no = resultSet.getString("reg_no");
+						gradesList.add(resultSet.getString("421"));
+						gradesList.add(resultSet.getString("422"));
+						gradesList.add(resultSet.getString("423"));
+						gradesList.add(resultSet.getString("42x"));
+						gradesList.add(resultSet.getString("429"));
+
+						eighthSemester = new EighthSemester(gradesList);
+					} while (resultSet.next());
         		}
+        		
+        		if (isEmpty)
+        			
+        			return null;
 
         		connection.close();
         	}

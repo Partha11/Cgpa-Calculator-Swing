@@ -33,16 +33,8 @@ public class LoadingScreen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		frame.setSize(345, 139);
-		
-		if (FramePosition.frameX == 0 || FramePosition.frameY == 0)
-
-			frame.setLocationRelativeTo(null);
-
-		else
-
-			frame.setLocation(FramePosition.frameX, FramePosition.frameY);
-		
-		System.out.println(FramePosition.frameX + " " + FramePosition.frameY);
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));

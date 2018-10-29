@@ -2,10 +2,14 @@ package com.student.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -20,11 +24,16 @@ import javax.swing.UIManager;
 import com.student.statics.FramePosition;
 import com.student.storage.FileOperation;
 
+import sun.reflect.generics.tree.VoidDescriptor;
+
 public class SplashScreen {
 
 	private JFrame frame;
 	private JProgressBar progressBar;
 	private Timer timer;
+	
+	public static Font Cambria;
+	public static Font CambriaBold;
 	
 	private int val;
 
@@ -42,10 +51,13 @@ public class SplashScreen {
 	                } 
 					
 					catch (Exception ex) {
+						
+						ex.printStackTrace();
 	                }
 					
 					initialize();
 					frame.setVisible(true);
+					setFont();
 					
 					ActionListener updateProgress = new ActionListener() {
 						
@@ -76,7 +88,7 @@ public class SplashScreen {
 							
 							try {
 								
-								Thread.sleep(50);
+								Thread.sleep(45);
 							} 
 							
 							catch (InterruptedException e) {
@@ -105,6 +117,7 @@ public class SplashScreen {
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		frame.setSize(564, 397);
 		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
 		frame.addComponentListener(new ComponentAdapter() {
 
 			@Override
@@ -141,5 +154,25 @@ public class SplashScreen {
 		label.setIcon(new ImageIcon(SplashScreen.class.getResource("/com/student/animations/loading_4_1.gif")));
 		label.setBounds(124, 11, 308, 271);
 		panel.add(label);
+	}
+	
+	private void setFont() {
+		
+		InputStream inputCambria = SplashScreen.class.getResourceAsStream("/com/student/fonts/Cambria.ttf");
+		InputStream inputCambriaBold = SplashScreen.class.getResourceAsStream("/com/student/fonts/Cambriab.ttf");
+		
+		try {
+			
+			Cambria = Font.createFont(Font.TRUETYPE_FONT, inputCambria);
+			CambriaBold = Font.createFont(Font.TRUETYPE_FONT, inputCambriaBold);
+			
+			Cambria = Cambria.deriveFont(15f);
+			CambriaBold = CambriaBold.deriveFont(15f);
+		} 
+		
+		catch (FontFormatException | IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 }

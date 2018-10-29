@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.MatteBorder;
@@ -93,8 +94,26 @@ public class SelectResultMethod {
 				try {
 					
 					database = new Database();
-				
 					initialize();
+					
+					SwingUtilities.invokeLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							
+							frame.addComponentListener(new ComponentAdapter() {
+								
+								@Override
+								public void componentMoved(ComponentEvent componentEvent) {
+									
+									FramePosition.frameX = componentEvent.getComponent().getX();
+									FramePosition.frameY = componentEvent.getComponent().getY();
+									
+									System.out.println(componentEvent.getComponent().getInputContext().toString());
+								}
+							});
+						}
+					});
 				}
 				
 				catch (Exception e) {
@@ -114,16 +133,8 @@ public class SelectResultMethod {
 		frame.getContentPane().setLayout(null);
 		frame.setSize(448, 303);
 		frame.setLocationRelativeTo(null);
-		frame.addComponentListener(new ComponentAdapter() {
-
-			@Override
-			public void componentMoved(ComponentEvent componentEvent) {
-
-				FramePosition.frameX = componentEvent.getComponent().getX();
-				FramePosition.frameY = componentEvent.getComponent().getY();
-			}
-		});
-
+		frame.setResizable(false);
+		
 		if (FramePosition.frameX == 0 || FramePosition.frameY == 0)
 
 			frame.setLocationRelativeTo(null);
@@ -132,8 +143,6 @@ public class SelectResultMethod {
 
 			frame.setLocation(FramePosition.frameX, FramePosition.frameY);
 		
-		System.out.println(FramePosition.frameX + " " + FramePosition.frameY);
-		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(32, 12, 382, 251);
 		frame.getContentPane().add(tabbedPane);
@@ -141,16 +150,16 @@ public class SelectResultMethod {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(249, 249, 249));
 		tabbedPane.addTab("Automatic", null, panel, null);
-		tabbedPane.setFont(new Font("Cambria", Font.BOLD, 15));
+		tabbedPane.setFont(SplashScreen.CambriaBold);
 		panel.setLayout(null);
 		
 		JLabel lblSemester = new JLabel("Semester");
-		lblSemester.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblSemester.setFont(SplashScreen.CambriaBold);
 		lblSemester.setBounds(74, 82, 85, 19);
 		panel.add(lblSemester);
 		
 		comboBox = new JComboBox();
-		comboBox.setFont(new Font("Cambria", Font.PLAIN, 15));
+		comboBox.setFont(SplashScreen.Cambria);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"}));
 		comboBox.setBounds(169, 79, 85, 24);
 		panel.add(comboBox);
@@ -158,13 +167,13 @@ public class SelectResultMethod {
 		btnNext = new JButton("Next");
 		btnNext.setAction(action_1);
 		btnNext.setBounds(282, 168, 73, 30);
-		btnNext.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnNext.setFont(SplashScreen.CambriaBold);
 		panel.add(btnNext);
 		
 		JButton btnHome = new JButton("Home");
 		btnHome.setAction(action);
 		btnHome.setBounds(198, 168, 73, 30);
-		btnHome.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnHome.setFont(SplashScreen.CambriaBold);
 		panel.add(btnHome);
 		
 		JPanel panel_1 = new JPanel();
@@ -173,24 +182,24 @@ public class SelectResultMethod {
 		panel_1.setLayout(null);
 		
 		JLabel lblPanel_1 = new JLabel("Semester");
-		lblPanel_1.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblPanel_1.setFont(SplashScreen.CambriaBold);
 		lblPanel_1.setBounds(65, 77, 82, 19);
 		panel_1.add(lblPanel_1);
 		
 		comboBox_1 = new JComboBox();
-		comboBox_1.setFont(new Font("Cambria", Font.PLAIN, 15));
+		comboBox_1.setFont(SplashScreen.Cambria);
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"}));
 		comboBox_1.setBounds(210, 76, 123, 24);
 		panel_1.add(comboBox_1);
 		
 		JLabel lblNewLabel = new JLabel("Registration No");
-		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblNewLabel.setFont(SplashScreen.CambriaBold);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(65, 42, 111, 19);
 		panel_1.add(lblNewLabel);
 		
 		reg_no_manual = new JTextField();
-		reg_no_manual.setFont(new Font("Cambria", Font.PLAIN, 15));
+		reg_no_manual.setFont(SplashScreen.Cambria);
 		reg_no_manual.setBounds(210, 38, 123, 24);
 		panel_1.add(reg_no_manual);
 		reg_no_manual.setColumns(10);
@@ -198,11 +207,11 @@ public class SelectResultMethod {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.setAction(action_2);
 		btnSearch.setBounds(197, 140, 92, 30);
-		btnSearch.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnSearch.setFont(SplashScreen.CambriaBold);
 		panel_1.add(btnSearch);
 		
 		JButton btnHome_1 = new JButton("Home");
-		btnHome_1.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnHome_1.setFont(SplashScreen.CambriaBold);
 		btnHome_1.setBounds(98, 140, 89, 30);
 		btnHome_1.setAction(action);
 		panel_1.add(btnHome_1);

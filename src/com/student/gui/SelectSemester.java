@@ -3,8 +3,8 @@ package com.student.gui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import com.student.statics.FramePosition;
 
@@ -34,6 +34,25 @@ public class SelectSemester {
 				
 					initialize();
 					frame.setVisible(true);
+					
+					SwingUtilities.invokeLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							
+							frame.addComponentListener(new ComponentAdapter() {
+								
+								@Override
+								public void componentMoved(ComponentEvent componentEvent) {
+									
+									FramePosition.frameX = componentEvent.getComponent().getX();
+									FramePosition.frameY = componentEvent.getComponent().getY();
+									
+									System.out.println(componentEvent.getComponent().getInputContext().toString());
+								}
+							});
+						}
+					});
 				} 
 				
 				catch (Exception e) {
@@ -51,15 +70,6 @@ public class SelectSemester {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
-		frame.addComponentListener(new ComponentAdapter() {
-			
-			@Override
-			public void componentMoved(ComponentEvent componentEvent) {
-				
-				FramePosition.frameX = componentEvent.getComponent().getX();
-				FramePosition.frameY = componentEvent.getComponent().getY();
-			}
-		});
 		
 		if (FramePosition.frameX == 0 || FramePosition.frameY == 0) {
 			
@@ -76,13 +86,13 @@ public class SelectSemester {
 		panel.setLayout(null);
 		
 		JLabel lblSemester = new JLabel("Semester:");
-		lblSemester.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblSemester.setFont(SplashScreen.CambriaBold);
 		lblSemester.setBounds(102, 79, 70, 19);
 		panel.add(lblSemester);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"}));
-		comboBox.setFont(new Font("Cambria", Font.BOLD, 15));
+		comboBox.setFont(SplashScreen.Cambria);
 		comboBox.setBounds(193, 73, 113, 30);
 		panel.add(comboBox);
 		
@@ -97,7 +107,7 @@ public class SelectSemester {
 				return;
 			}
 		});
-		btnCheck.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnCheck.setFont(SplashScreen.CambriaBold);
 		btnCheck.setBounds(218, 152, 76, 30);
 		panel.add(btnCheck);
 		
@@ -112,7 +122,7 @@ public class SelectSemester {
 			}
 		});
 		
-		btnHome.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnHome.setFont(SplashScreen.CambriaBold);
 		btnHome.setBounds(123, 152, 76, 30);
 		panel.add(btnHome);
 	}

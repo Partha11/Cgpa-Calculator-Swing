@@ -16,6 +16,7 @@ import org.omg.CORBA.WCharSeqHolder;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import com.student.calculator.Calculator;
 import com.student.models.EighthSemester;
@@ -111,6 +112,25 @@ public class ShowSubject {
 				
 					initialize();
 					frame.setVisible(true);
+					
+					SwingUtilities.invokeLater(new Runnable() {
+
+						@Override
+						public void run() {
+
+							frame.addComponentListener(new ComponentAdapter() {
+
+								@Override
+								public void componentMoved(ComponentEvent componentEvent) {
+
+									FramePosition.frameX = componentEvent.getComponent().getX();
+									FramePosition.frameY = componentEvent.getComponent().getY();
+
+									System.out.println(componentEvent.getComponent().getInputContext().toString());
+								}
+							});
+						}
+					});
 				} 
 				
 				catch (Exception e) {
@@ -129,15 +149,7 @@ public class ShowSubject {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
-		frame.addComponentListener(new ComponentAdapter() {
-
-			@Override
-			public void componentMoved(ComponentEvent componentEvent) {
-
-				FramePosition.frameX = componentEvent.getComponent().getX();
-				FramePosition.frameY = componentEvent.getComponent().getY();
-			}
-		});
+		frame.setResizable(false);
 
 		if (FramePosition.frameX == 0 || FramePosition.frameY == 0) {
 
@@ -154,10 +166,12 @@ public class ShowSubject {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
+		SplashScreen.CambriaBold = SplashScreen.CambriaBold.deriveFont(21f);
 		JLabel lblSemester = new JLabel(SelectSemester.semester + sequence + " Semester");
-		lblSemester.setFont(new Font("Cambria", Font.BOLD, 21));
+		lblSemester.setFont(SplashScreen.CambriaBold);
 		lblSemester.setBounds(230, 12, 140, 50);
 		panel.add(lblSemester);
+		SplashScreen.CambriaBold = SplashScreen.CambriaBold.deriveFont(15f);
 		
 		btnHome = new JButton("Home");
 		btnHome.addActionListener(new ActionListener() {
@@ -169,25 +183,27 @@ public class ShowSubject {
 				return;
 			}
 		});
-		btnHome.setFont(new Font("Cambria", Font.BOLD, 15));
+		btnHome.setFont(SplashScreen.CambriaBold);
 		btnHome.setBounds(260, 329, 80, 30);
 		panel.add(btnHome);
 		
 		for (int i = 0; i < subject; i++) {
 			
 			JLabel label = new JLabel(rootSemester.getSubjectNameList().get(i));
-			label.setFont(new Font("Cambria", Font.BOLD, 15));
+			label.setFont(SplashScreen.CambriaBold);
 			label.setSize(label.getPreferredSize().width, 20);
 			
 			if (practicalIndexList.contains(i)) {
 				
 				label.setLocation(x1, y1);
+				label.setForeground(new Color(128, 0, 255));
 				y1 += 30;
 			}
 			
 			else {
 				
 				label.setLocation(x, y);
+				label.setForeground(new Color(0, 128, 255));
 				y += 30;
 			}
 			
